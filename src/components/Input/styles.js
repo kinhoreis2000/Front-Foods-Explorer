@@ -13,5 +13,5 @@ export const Container = styled.input`
   padding: 12px 14px;
   gap: 14px;
   background-color:${({theme})=> theme.COLORS.BACKGROUND_DARK_900};
-  border-radius: 8px;
+  border-radius: 8.1px;
 `
