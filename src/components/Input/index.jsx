@@ -1,10 +1,10 @@
 import {Container} from './styles.js'
 
 
-export function Input({placeholder, ...rest}) {
+export function Input({placeholder,onChange , ...rest}) {
 
   return(
-    <Container placeholder = {placeholder}>
+    <Container onChange = {onChange} placeholder = {placeholder}>
   
     </Container>
   )

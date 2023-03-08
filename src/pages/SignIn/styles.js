@@ -19,6 +19,7 @@ export const Container = styled.div`
   }
 
   footer {
+    a{
     color : ${({theme})=> theme.COLORS.TXT_LIGHT_100};
     font-family: 'Poppins';
     font-style: normal;
@@ -27,6 +28,12 @@ export const Container = styled.div`
     line-height: 24px;
     display:flex;
     justify-content: center;
+    }
+
+    a:hover{
+      transition: 0.2s;
+      color : ${({theme})=> theme.COLORS.TXT_LIGHT_300}
+    }
   }
 
   header {
@@ -92,6 +99,11 @@ export const Container = styled.div`
       }
 
       h2{
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 3.2rem;
+        line-height: 140%;
         margin-bottom:1rem;
         font-weight: 500;
         font-size: 32px;
