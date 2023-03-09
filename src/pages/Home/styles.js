@@ -1,12 +1,21 @@
 import styled from 'styled-components';
+import 'swiper/css';
 
 export const Container = styled.div`
-  >.page{
-    display: grid;
-    justify-items: center;
+    .head {
+      display: flex;
+     justify-content: center;
+    }
+    .pageHome{
+      width: 100vw;
+      h3 {
+        margin-left: 6vw;
+      }
   
+    }
 
     .HomeADS {
+
         margin-top: 5rem;
         display: flex;
         flex-direction: row;
@@ -46,6 +55,13 @@ export const Container = styled.div`
         font-weight: 400;
       }
     }
+
+
+      .refeicoes {
+        margin: 2rem 0rem;
+      }
+
+
     @media (min-width: 412px) {
       .imgSide img {
      
@@ -71,7 +87,6 @@ export const Container = styled.div`
     }
 
 
-   }
 
    
   

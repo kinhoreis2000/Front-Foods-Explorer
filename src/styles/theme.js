@@ -5,6 +5,8 @@ export default {
     BACKGROUND_DARK_800: 'hsla(201, 35%, 8%, 1)',
     BACKGROUND_DARK_700: 'hsla(199, 100%, 5%, 1)',
     BACKGROUND_DARK_400: 'hsla(199, 100%, 3%, 1)',
+    BACKGROUND_DARK_200: 'hsla(198, 100%, 2%, 1)',
+
     
     BACKGROUND_TOMATO_400: 'hsla(355, 38%, 49%, 1)',
     BACKGROUND_TOMATO_100: 'hsla(353, 95%, 24%, 1)',
@@ -17,7 +19,8 @@ export default {
     TXT_LIGHT_200: 'hsla(39, 100%, 97%, 1)',
     TXT_LIGHT_100: 'hsla(0, 0%, 100%, 1)',
 
-    TXT_TINTS_CAKE_100: 'hsla(186, 100%, 75%, 1)',
+    TXT_TINTS_CAKE_200: 'hsla(186, 100%, 75%, 1)',
+    TXT_TINTS_CAKE_100: 'hsla(195, 91%, 25%, 1)',
 
   }
 }

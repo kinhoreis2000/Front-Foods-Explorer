@@ -1,15 +1,21 @@
 import {Container} from './styles'
 import {Header} from '../../components/Header'
+import {MealCard} from '../../components/MealCard'
 import topHomeImage from '../../assets/topMainImage.svg'
-
-
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
+import 'swiper/css/navigation';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
 export function Home() {
 
-  
+
   return(
     <Container>
      <Header></Header>
-      <div className = 'page'>
+     <div className ='pageHome'>
+      <div  className = 'head'>
           <div className = 'HomeADS'>
             <div className = 'imgSide'>
               <img src = {topHomeImage}></img>
@@ -21,27 +27,86 @@ export function Home() {
             </div>
             
           </div>
-
+      </div>
           
-         {/*  
           <div className='content'> 
-            <div clasNamme = 'refeicoes'>
+            <div className = 'refeicoes'>
               <h3>Refeições</h3>
-              <RenderRefCards></RenderRefCards>
+              <Swiper
+                 modules={[Navigation, Pagination, Scrollbar, A11y]}
+                 spaceBetween={200}
+                 slidesPerView={2.5}
+                 navigation
+                 pagination={{ clickable: true }}
+                 scrollbar={{ draggable: true }}
+                 onSwiper={(swiper) => console.log(swiper)}
+                 onSlideChange={() => console.log('slide change')}
+                >
+
+
+                <SwiperSlide>
+                  <MealCard
+                    className='number-slide4'
+                    meal={{
+                      name: 'Salada Ravanello',
+                      price: 'R$ 49,97',
+                      photo: 'https://github.com/kinhoreis2000.png',
+                    }}
+                  /> 
+                </SwiperSlide>
+           
+                <SwiperSlide>
+                  <MealCard
+                    className='number-slide4'
+                    meal={{
+                      name: 'Salada Ravanello',
+                      price: 'R$ 49,97',
+                      photo: 'https://github.com/kinhoreis2000.png',
+                    }}
+                  /> 
+                </SwiperSlide>
+           
+                <SwiperSlide>
+                  <MealCard
+                    className='number-slide4'
+                    meal={{
+                      name: 'Salada Ravanello',
+                      price: 'R$ 49,97',
+                      photo: 'https://github.com/kinhoreis2000.png',
+                    }}
+                  /> 
+                </SwiperSlide>
+           
+             
+                <SwiperSlide>
+                  <MealCard
+                    className='number-slide4'
+                    meal={{
+                      name: 'Salada Ravanello',
+                      price: 'R$ 49,97',
+                      photo: 'https://github.com/kinhoreis2000.png',
+                    }}
+                  /> 
+                </SwiperSlide>
+           
+             
+
+
+
+
+              </Swiper>
+              </div>
+
             </div>
-            <div clasNamme = 'PratosPrincipais'>
+            <div className = 'PratosPrincipais'>
               <h3>PratosPrincipais</h3>
-              <RenderMainPlateCards></RenderMainPlateCards>
             </div>
-            <div clasNamme = 'Bebidas'>
+            <div className = 'Bebidas'>
               <h3>Bebidas</h3>
-              <RenderDrinksCards></RenderDrinksCards>
             </div>
 
 
           </div>
- */}
-    </div>
     </Container>
   )
 }
