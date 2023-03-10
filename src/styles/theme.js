@@ -1,6 +1,7 @@
 export default {
   COLORS: {
 
+    BACKGROUND_DARK_1000: 'hsla(201, 22%, 13%, 1)',
     BACKGROUND_DARK_900: 'hsla(200, 48%, 10%, 1)',
     BACKGROUND_DARK_800: 'hsla(201, 35%, 8%, 1)',
     BACKGROUND_DARK_700: 'hsla(199, 100%, 5%, 1)',

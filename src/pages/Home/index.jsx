@@ -1,6 +1,6 @@
 import {Container} from './styles'
 import {Header} from '../../components/Header'
-import {MealCard} from '../../components/MealCard'
+import {FoodCard} from '../../components/FoodCard'
 import topHomeImage from '../../assets/topMainImage.svg'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
@@ -12,7 +12,11 @@ export function Home() {
 
 
   return(
+
     <Container>
+
+ 
+
      <Header></Header>
      <div className ='pageHome'>
       <div  className = 'head'>
@@ -39,13 +43,11 @@ export function Home() {
                  navigation
                  pagination={{ clickable: true }}
                  scrollbar={{ draggable: true }}
-                 onSwiper={(swiper) => console.log(swiper)}
-                 onSlideChange={() => console.log('slide change')}
                 >
 
 
                 <SwiperSlide>
-                  <MealCard
+                  <FoodCard
                     className='number-slide4'
                     meal={{
                       name: 'Salada Ravanello',
@@ -56,7 +58,7 @@ export function Home() {
                 </SwiperSlide>
            
                 <SwiperSlide>
-                  <MealCard
+                  <FoodCard
                     className='number-slide4'
                     meal={{
                       name: 'Salada Ravanello',
@@ -67,7 +69,7 @@ export function Home() {
                 </SwiperSlide>
            
                 <SwiperSlide>
-                  <MealCard
+                  <FoodCard
                     className='number-slide4'
                     meal={{
                       name: 'Salada Ravanello',
@@ -79,7 +81,7 @@ export function Home() {
            
              
                 <SwiperSlide>
-                  <MealCard
+                  <FoodCard
                     className='number-slide4'
                     meal={{
                       name: 'Salada Ravanello',
@@ -100,6 +102,67 @@ export function Home() {
             </div>
             <div className = 'PratosPrincipais'>
               <h3>PratosPrincipais</h3>
+              <Swiper
+                 modules={[Navigation, Pagination, Scrollbar, A11y]}
+                 spaceBetween={200}
+                 slidesPerView={2.5}
+                 navigation
+                 pagination={{ clickable: true }}
+                 scrollbar={{ draggable: true }}
+                >
+
+
+                <SwiperSlide>
+                  <FoodCard
+                    className='number-slide4'
+                    meal={{
+                      name: 'Salada Ravanello',
+                      price: 'R$ 49,97',
+                      photo: 'https://github.com/kinhoreis2000.png',
+                    }}
+                  /> 
+                </SwiperSlide>
+           
+                <SwiperSlide>
+                  <FoodCard
+                    className='number-slide4'
+                    meal={{
+                      name: 'Salada Ravanello',
+                      price: 'R$ 49,97',
+                      photo: 'https://github.com/kinhoreis2000.png',
+                    }}
+                  /> 
+                </SwiperSlide>
+           
+                <SwiperSlide>
+                  <FoodCard
+                    className='number-slide4'
+                    meal={{
+                      name: 'Salada Ravanello',
+                      price: 'R$ 49,97',
+                      photo: 'https://github.com/kinhoreis2000.png',
+                    }}
+                  /> 
+                </SwiperSlide>
+           
+             
+                <SwiperSlide>
+                  <FoodCard
+                    className='number-slide4'
+                    meal={{
+                      name: 'Salada Ravanello',
+                      price: 'R$ 49,97',
+                      photo: 'https://github.com/kinhoreis2000.png',
+                    }}
+                  /> 
+                </SwiperSlide>
+           
+             
+
+
+
+
+              </Swiper>
             </div>
             <div className = 'Bebidas'>
               <h3>Bebidas</h3>
@@ -108,6 +171,9 @@ export function Home() {
 
           </div>
     </Container>
+
+
+
   )
-}
+ }
 

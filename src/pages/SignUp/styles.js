@@ -10,8 +10,8 @@ export const Container = styled.div`
   }
   
   main {
-    height: 75vh;
     display: grid;
+    margin-top: 2rem;
     align-items: center;
     justify-content: center;
     justify-items: center;

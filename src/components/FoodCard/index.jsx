@@ -4,7 +4,7 @@ import {RedButton} from '../../components/RedButton'
 import heart from '../../assets/heart.svg'
 import minus from '../../assets/minus.svg'
 import plus from '../../assets/plus.svg'
-export function MealCard({meal}) {
+export function FoodCard({meal}) {
 
 
 
@@ -15,11 +15,12 @@ export function MealCard({meal}) {
           <div className = 'favorite' >
             <img src = {heart} alt ='favorite'></img>
           </div>
+
           <div className = 'mealphoto'>
             <img src = {meal.photo}></img>
           </div>
-          
-          <p>{meal.price}</p>
+          <h2 className = 'mealName'>{meal.name}</h2>
+          <p className = 'mealPrice' >{meal.price}</p>
           <div className = 'qtdOfOrder'>
             <img src = {minus}/>
             <label> 01 </label> 

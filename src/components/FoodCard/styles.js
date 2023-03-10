@@ -3,8 +3,18 @@ import styled from 'styled-components';
 import 'swiper/css';
 
 export const Container = styled.div`
-    min-width: 50vw;
+    min-width: 40vw;
     background-color:${({theme})=> theme.COLORS.BACKGROUND_DARK_200};
+    h2{
+      display: flex;
+     justify-content: center;
+      font-family: 'Poppins';
+      
+      font-size: 1.4rem;
+      line-height: 2.4rem;
+      color : ${({theme})=> theme.COLORS.TXT_LIGHT_300};
+
+    }
     button {
       width: 100%
     }
@@ -72,5 +82,13 @@ export const Container = styled.div`
     
  
   }
+  @media screen and (max-width: 394px) {
+
+    min-width: 50vw;
+
+  }
+
+
+
 `
 

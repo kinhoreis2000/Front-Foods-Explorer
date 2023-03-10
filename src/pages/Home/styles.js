@@ -2,9 +2,12 @@ import styled from 'styled-components';
 import 'swiper/css';
 
 export const Container = styled.div`
+  
     .head {
       display: flex;
      justify-content: center;
+      padding-top: 15vh;
+
     }
     .pageHome{
       width: 100vw;
@@ -32,8 +35,9 @@ export const Container = styled.div`
       height: 22rem;
       width: 22rem;
       position: absolute;
-      top: 40px;
-      left: -5vw;
+      top: -67px;
+      left: -7vw;
+  
       z-index: 1;
       justify-content: flex-end;
   
@@ -48,6 +52,8 @@ export const Container = styled.div`
       margin-top: 4.6rem;
       margin-bottom: 2rem;
       max-width: 30rem;
+      min-width: 22rem;
+
       z-index: 2;
       p{
         font-family: 'Poppins';
@@ -62,32 +68,7 @@ export const Container = styled.div`
       }
 
 
-    @media (min-width: 412px) {
-      .imgSide img {
-     
-        top: 15px;
-
-      }
-    }
-    @media (min-width: 464px) {
-      .imgSide img {
-     
-        top: -8px;
-
-      }
-    }
-
   
-    @media (min-width: 469px) {
-      .imgSide img {
-     
-        top: -46px;
-
-      }
-    }
-
-
-
-   
+  
   
 `;

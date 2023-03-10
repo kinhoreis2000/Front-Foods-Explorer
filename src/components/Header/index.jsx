@@ -1,17 +1,29 @@
 
 import {Container} from './styles'
+import {useState} from 'react'
 import optionsPhonesvg from '../../assets/optionsPhone.svg'
 import hexagonalLogo from '../../assets/hexagonalLogo.svg'
 import orderLogo from '../../assets/orderLogo.svg'
+import {SideBar} from '../SideBar'
+import { FiSearch} from 'react-icons/fi'
+
 
 export function Header() {
+  const [sidebar, setSideBar] = useState(false)
+  const showSideBar = () =>setSideBar(!sidebar)
+
+  
     return(
       <Container>
         <div className = 'header'>
           <div  className = 'optionsPhone'>
-            <img
-                src = {optionsPhonesvg}
-                alt='Foto do usuário'/>
+
+          <img
+          src = {optionsPhonesvg}
+          alt='Logo para sideBar'
+          onClick = {showSideBar}/>
+      
+                {sidebar && <SideBar active = {setSideBar}/>}
           </div>
 
           <div className = 'logoFoodsExplorer'>
