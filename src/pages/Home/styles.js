@@ -35,8 +35,8 @@ export const Container = styled.div`
       height: 22rem;
       width: 22rem;
       position: absolute;
-      top: -67px;
-      left: -7vw;
+      top: -9px;
+      left: -8%;
   
       z-index: 1;
       justify-content: flex-end;
@@ -52,13 +52,14 @@ export const Container = styled.div`
       margin-top: 4.6rem;
       margin-bottom: 2rem;
       max-width: 30rem;
-      min-width: 22rem;
 
       z-index: 2;
       p{
         font-family: 'Poppins';
         font-style: normal;
         font-weight: 400;
+        min-width: 25.5rem;
+
       }
     }
 
@@ -69,6 +70,20 @@ export const Container = styled.div`
 
 
   
+      @media screen and (min-width: 465px) {
+
+        .imgSide img {
+ 
+            top: -47px;
+            left: -1%;
+  
+     
+  
+
+    }
+      }
+
+
   
   
 `;
