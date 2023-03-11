@@ -5,6 +5,8 @@ import 'swiper/css';
 export const Container = styled.div`
     min-width: 40vw;
     background-color:${({theme})=> theme.COLORS.BACKGROUND_DARK_200};
+    border: 1px solid ${({theme})=> theme.COLORS.BACKGROUND_DARK_300};
+    border-radius: 8px;
     h2{
       display: flex;
      justify-content: center;

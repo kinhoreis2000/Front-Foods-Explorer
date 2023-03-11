@@ -40,7 +40,7 @@ export function SignUp() {
               placeholder = 'No mínimo 6 caracteres'>
               </Input>
              
-              <RedButton value = 'Criar conta'></RedButton> 
+              <RedButton title = 'Criar conta'></RedButton> 
 
             </Form>
             <footer className = "info"> <Link to = '/signin'>Já tenho uma conta</Link> </footer>

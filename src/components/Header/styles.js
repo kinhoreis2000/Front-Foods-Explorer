@@ -13,11 +13,22 @@ export const Container = styled.header`
     align-items: center;
     justify-content: space-between;
     padding: 0 2rem;
-    .optionsPhone {         
-      img{
+    
+   
+    .LogoForSideBar {         
+      
         height: 2.8rem;
-      }
+      
     }
+
+    >.logoFoodsExplorer{
+      img{
+        margin-right: 2rem;
+        margin-left: 7vw;
+      }
+        
+      }
+
 
     .logoFoodsExplorer {
       display: flex;
@@ -28,11 +39,8 @@ export const Container = styled.header`
       font-weight: 700;
       font-size: 2.11629rem;
       line-height: 2.5rem;
-
-      img{
-        margin-right: 2rem;
-        margin-left: 7vw;
-      }
+   
+      
     }
 
     .ordersBTN {

@@ -12,8 +12,10 @@ export const Container = styled.div`
     .pageHome{
       width: 100vw;
       h3 {
-        margin-left: 6vw;
+        font-size: 3rem;
+        margin: 6vh 6vw;
       }
+      min-height: calc(100% - 3rem);
   
     }
 
@@ -81,6 +83,9 @@ export const Container = styled.div`
   
 
     }
+      }
+      footer{
+        margin-top: 2rem;
       }
 
 

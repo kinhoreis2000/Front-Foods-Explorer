@@ -1,48 +1,26 @@
 
 import {Container} from './styles'
-import {useState} from 'react'
-import optionsPhonesvg from '../../assets/optionsPhone.svg'
-import hexagonalLogo from '../../assets/hexagonalLogo.svg'
-import orderLogo from '../../assets/orderLogo.svg'
-import {SideBar} from '../SideBar'
-import { FiSearch} from 'react-icons/fi'
+import hexagonalLogoGrey from '../../assets/hexagonalLogoGrey.svg'
 
 
-export function Header() {
-  const [sidebar, setSideBar] = useState(false)
-  const showSideBar = () =>setSideBar(!sidebar)
+export function Footer() {
+
 
   
     return(
       <Container>
-        <div className = 'header'>
-          <div  className = 'optionsPhone'>
-
-          <img
-          src = {optionsPhonesvg}
-          alt='Logo para sideBar'
-          onClick = {showSideBar}/>
-      
-                {sidebar && <SideBar active = {setSideBar}/>}
-          </div>
-
-          <div className = 'logoFoodsExplorer'>
-            <img
-                src = {hexagonalLogo}
-                alt='logo foodexplorer'/>
-            <h1>food explorer</h1>
-          </div>
+        <footer>
           
-          <div className = 'ordersBTN'>
-            <p>0</p>
-            
-            <img
-                src = {orderLogo}
-                alt='Foto do usuário'/>
+          <div className ='footerLogoSide'>
+            <img src = {hexagonalLogoGrey}></img> 
+            <p>food explorer</p>
           </div>
 
-        </div>
+          <div className = 'footerLicenceSide'>
+            <label>© 2023 - Todos os direitos reservados.</label>
+          </div>
 
+        </footer>
       </Container>
     )
 }

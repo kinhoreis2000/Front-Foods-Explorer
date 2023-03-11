@@ -12,12 +12,23 @@ export const Container = styled.div`
   z-index: 5;
   background-color : ${({theme})=> theme.COLORS.BACKGROUND_DARK_400};
 
-
+  footer {
+    position: fixed;
+    bottom: 0;
+  }
   .topMenu {
-  background-color : ${({theme})=> theme.COLORS.BACKGROUND_DARK_700};
+    display: flex;
+    align-items: center;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 2.11629rem;w
+    line-height: 2.5rem;
+    background-color : ${({theme})=> theme.COLORS.BACKGROUND_DARK_700};
     margin-bottom: 2rem;
   }
-  img {
+  .CloseSideBar {
+    height: 3rem;
     margin: 4.2rem 5vw; 
 
   }

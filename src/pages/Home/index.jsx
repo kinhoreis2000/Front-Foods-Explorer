@@ -1,5 +1,6 @@
 import {Container} from './styles'
 import {Header} from '../../components/Header'
+import {Footer} from '../../components/Footer'
 import {FoodCard} from '../../components/FoodCard'
 import topHomeImage from '../../assets/topMainImage.svg'
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -40,6 +41,7 @@ export function Home() {
                  modules={[Navigation, Pagination, Scrollbar, A11y]}
                  spaceBetween={200}
                  slidesPerView={2.5}
+                 style={{ marginLeft: "5vw" }}
                  navigation
                  pagination={{ clickable: true }}
                  scrollbar={{ draggable: true }}
@@ -101,11 +103,12 @@ export function Home() {
 
             </div>
             <div className = 'PratosPrincipais'>
-              <h3>PratosPrincipais</h3>
+              <h3>Pratos Principais</h3>
               <Swiper
                  modules={[Navigation, Pagination, Scrollbar, A11y]}
                  spaceBetween={200}
                  slidesPerView={2.5}
+                 style={{ marginLeft: "5vw" }}
                  navigation
                  pagination={{ clickable: true }}
                  scrollbar={{ draggable: true }}
@@ -166,8 +169,70 @@ export function Home() {
             </div>
             <div className = 'Bebidas'>
               <h3>Bebidas</h3>
-            </div>
+              <Swiper
+                 modules={[Navigation, Pagination, Scrollbar, A11y]}
+                 spaceBetween={200}
+                 slidesPerView={2.5}
+                 style={{ marginLeft: "5vw" }}
+                 navigation
+                 pagination={{ clickable: true }}
+                 scrollbar={{ draggable: true }}
+                >
 
+
+                <SwiperSlide>
+                  <FoodCard
+                    className='number-slide4'
+                    meal={{
+                      name: 'Salada Ravanello',
+                      price: 'R$ 49,97',
+                      photo: 'https://github.com/kinhoreis2000.png',
+                    }}
+                  /> 
+                </SwiperSlide>
+           
+                <SwiperSlide>
+                  <FoodCard
+                    className='number-slide4'
+                    meal={{
+                      name: 'Salada Ravanello',
+                      price: 'R$ 49,97',
+                      photo: 'https://github.com/kinhoreis2000.png',
+                    }}
+                  /> 
+                </SwiperSlide>
+           
+                <SwiperSlide>
+                  <FoodCard
+                    className='number-slide4'
+                    meal={{
+                      name: 'Salada Ravanello',
+                      price: 'R$ 49,97',
+                      photo: 'https://github.com/kinhoreis2000.png',
+                    }}
+                  /> 
+                </SwiperSlide>
+           
+             
+                <SwiperSlide>
+                  <FoodCard
+                    className='number-slide4'
+                    meal={{
+                      name: 'Salada Ravanello',
+                      price: 'R$ 49,97',
+                      photo: 'https://github.com/kinhoreis2000.png',
+                    }}
+                  /> 
+                </SwiperSlide>
+           
+             
+
+
+
+
+              </Swiper>
+            </div>
+          <Footer/>
 
           </div>
     </Container>

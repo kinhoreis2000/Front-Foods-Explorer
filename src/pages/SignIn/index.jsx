@@ -28,7 +28,7 @@ export function SignIn() {
               <Input 
               onChange = {(e)=>{setPassword(e.target.value)}}
               placeholder = 'No mínimo 6 caracteres'></Input>
-              <RedButton value = 'Entrar'></RedButton> 
+              <RedButton title = 'Entrar'></RedButton> 
 
             </Form>
             <footer className = "info"> <Link to = '/signup'>Crie sua conta</Link> </footer>

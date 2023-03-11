@@ -5,7 +5,6 @@ import optionsPhonesvg from '../../assets/optionsPhone.svg'
 import hexagonalLogo from '../../assets/hexagonalLogo.svg'
 import orderLogo from '../../assets/orderLogo.svg'
 import {SideBar} from '../SideBar'
-import { FiSearch} from 'react-icons/fi'
 
 
 export function Header() {
@@ -21,6 +20,7 @@ export function Header() {
           <img
           src = {optionsPhonesvg}
           alt='Logo para sideBar'
+          className ='LogoForSideBar'
           onClick = {showSideBar}/>
       
                 {sidebar && <SideBar active = {setSideBar}/>}

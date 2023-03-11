@@ -20,14 +20,14 @@ export function FoodCard({meal}) {
             <img src = {meal.photo}></img>
           </div>
           <h2 className = 'mealName'>{meal.name}</h2>
-          <p className = 'mealPrice' >{meal.price}</p>
+          <p className = 'mealPrice' >{`R$ ${meal.price}`}</p>
           <div className = 'qtdOfOrder'>
             <img src = {minus}/>
             <label> 01 </label> 
             <img src = {plus}/> 
           </div>
         </div>
-        <RedButton value = 'incluir'></RedButton>
+        <RedButton title = 'incluir'></RedButton>
       </Container>
     )
 }

@@ -1,5 +1,6 @@
 import {Container} from './styles'
 import {Input} from '../Input'
+import {Footer} from '../Footer'
 import {TxtLink} from '../TxtLink'
 import close from '../../assets/close.svg'
 import {FiSearch} from 'react-icons/fi'
@@ -18,8 +19,10 @@ export function SideBar({active}) {
             <img
               src = {close}
               alt='Fechar sideBar'
+              className ='CloseSideBar'
               onClick = {closeSideBar}
               />
+              <p>Menu</p>
             </div>
 
             <div className = 'searchBar'>
@@ -30,6 +33,7 @@ export function SideBar({active}) {
             <Link to = ''>Sair</Link>
             </div> 
          </div>
+         <Footer/>
         </div>
       </Container>
     )
