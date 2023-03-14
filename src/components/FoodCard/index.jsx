@@ -1,6 +1,7 @@
 
 import {Container} from './styles'
 import {RedButton} from '../../components/RedButton'
+import {Link} from 'react-router-dom'
 import heart from '../../assets/heart.svg'
 import minus from '../../assets/minus.svg'
 import plus from '../../assets/plus.svg'
@@ -19,7 +20,7 @@ export function FoodCard({meal}) {
           <div className = 'mealphoto'>
             <img src = {meal.photo}></img>
           </div>
-          <h2 className = 'mealName'>{meal.name}</h2>
+          <Link className = 'mealName'>{meal.name}</Link>
           <p className = 'mealPrice' >{`R$ ${meal.price}`}</p>
           <div className = 'qtdOfOrder'>
             <img src = {minus}/>

@@ -6,22 +6,42 @@ export const Container = styled.header`
   position: fixed;
   z-index: 3; 
   width: 100%;
+  
 
   .header {
     height: 11.4rem;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 0 1rem;
-    
-   
+    justify-content: space-evenly;
+    padding: 0 2rem;
+    h1{
+      display: flex;
+      align-items: flex-start;
+    }
     .LogoForSideBar {         
+     
+      font-family: 'Roboto';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 160%;
       
+color: #82F3FF;
         height: 2.8rem;
       
     }
 
     >.logoFoodsExplorer{
+      p{
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 1.2rem;
+        line-height: 160%;
+        color:${({theme})=> theme.COLORS.TXT_TINTS_CAKE_200};
+        margin-left: 1rem;
+
+      }
       img{
         margin-right: 2rem;
         margin-left: 7vw;
@@ -31,6 +51,7 @@ export const Container = styled.header`
 
 
     .logoFoodsExplorer {
+    
       display: flex;
       justify-content: space-around;
       align-items: center;
@@ -82,7 +103,8 @@ export const Container = styled.header`
     .header {
       justify-content : space-evenly;
       .logoFoodsExplorer {
-      
+     
+
       font-size: 1.5rem;
 
       img{

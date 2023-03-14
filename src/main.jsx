@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import {MealDetails} from './pages/MealDetails'
+import {NewMeal} from './pages/NewMeal'
 import {ThemeProvider} from 'styled-components'
 import theme from './styles/theme'
 import GlobalStyles from './styles/global'
@@ -11,7 +11,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <ThemeProvider theme = {theme}>
       <Router>
         <GlobalStyles/>
-          <MealDetails />
+          <NewMeal />
         </Router>
     </ThemeProvider>
   </React.StrictMode>,

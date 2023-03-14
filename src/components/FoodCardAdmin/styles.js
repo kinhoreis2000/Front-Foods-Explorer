@@ -8,16 +8,16 @@ export const Container = styled.div`
     border: 1px solid ${({theme})=> theme.COLORS.BACKGROUND_DARK_300};
     border-radius: 8px;
     a{
+      min-width: 14rem;
       text-decoration: none;
-
       display: flex;
      justify-content: center;
       font-family: 'Poppins';
-      
       font-size: 1.4rem;
       line-height: 2.4rem;
+      white-space: nowrap;
       color : ${({theme})=> theme.COLORS.TXT_LIGHT_300};
-
+     
     }
     button {
       width: 100%
@@ -32,7 +32,11 @@ export const Container = styled.div`
     padding: 1.5rem;
     border-radius: 10%;
    
- 
+      .mealName{
+        display:flex;
+        align-items: center;
+        
+      }
     > .favorite {
       display: flex;
       justify-content: flex-end;

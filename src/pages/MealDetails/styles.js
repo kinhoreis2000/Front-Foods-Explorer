@@ -2,7 +2,9 @@ import styled from 'styled-components';
 import 'swiper/css';
 
 export const Container = styled.div`
-
+  li:nth-child(1) {
+    margin-left: 1rem;
+  }
   .DetailsData{
     display: flex; 
     flex-direction: column;
@@ -70,8 +72,9 @@ export const Container = styled.div`
       
       button{
         display:flex;
-      align-items:center;
-      margin-right: 1rem;
+        align-items:center;
+        margin-right: 3rem;
+        min-width: 20.5rem;
       
       }
       
@@ -89,6 +92,7 @@ export const Container = styled.div`
       .qtdOfOrder{
         display: flex;
         margin: 0 8vw;
+        padding-left: 2rem;
         justify-content: center;
         align-items: center;
 
