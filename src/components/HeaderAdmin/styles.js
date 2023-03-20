@@ -1,68 +1,66 @@
 import styled from 'styled-components';
 
 export const Container = styled.header`
-  background-color:${({theme})=> theme.COLORS.BACKGROUND_DARK_700};
-
   position: fixed;
   z-index: 3; 
   width: 100%;
-  
+
+  background-color:${({theme})=> theme.COLORS.BACKGROUND_DARK_700};
+
 
   .header {
     height: 11.4rem;
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
-    padding: 0 2rem;
-    h1{
-      display: flex;
-      align-items: flex-start;
-    }
+    justify-content: space-between;
+    padding: 0 1rem;
+    
+   
     .LogoForSideBar {         
-     
-      font-family: 'Roboto';
-font-style: normal;
-font-weight: 400;
-font-size: 12px;
-line-height: 160%;
       
-color: #82F3FF;
         height: 2.8rem;
+      
+    }
+    .logoFoodsExplorer {
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-start;
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 700;
+      font-size: 2.11629rem;
+      line-height: 2.5rem;
+      .txtLogoSide{
+        display:flex;
+        flex-direction:row;
+        align-items: flex-end;
+      }
       
     }
 
     >.logoFoodsExplorer{
-      p{
+      img{
+        margin: 0 2rem;
+      }
+        
+    }
+    span{
         font-family: 'Roboto';
         font-style: normal;
         font-weight: 400;
         font-size: 1.2rem;
         line-height: 160%;
         color:${({theme})=> theme.COLORS.TXT_TINTS_CAKE_200};
-        margin-left: 1rem;
-
-      }
-      img{
-        margin-right: 2rem;
-        margin-left: 7vw;
-      }
-        
       }
 
-
-    .logoFoodsExplorer {
-    
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      font-family: 'Roboto';
-      font-style: normal;
-      font-weight: 700;
-      font-size: 2.11629rem;
-      line-height: 2.5rem;
-   
+    .searchBar{
+      width:40%;
+      div{
+        width:100%;
+      }
       
     }
+
 
     .ordersBTN {
       display: flex;
@@ -99,12 +97,20 @@ color: #82F3FF;
 
 
   }
+
+  .desktopDesapear{
+        display:flex;
+      }
+  .desapear{
+    display: none;
+  }
+  
+
   @media screen and (max-width: 365px) {
     .header {
       justify-content : space-evenly;
       .logoFoodsExplorer {
-     
-
+      
       font-size: 1.5rem;
 
       img{
@@ -120,11 +126,84 @@ color: #82F3FF;
 
      
   }
+
   @media screen and (max-width: 513px) {
     h1 {
       line-height: 4rem;
     } 
   }
+
+  @media screen and (min-width: 769px) {
+
+    .header{
+      height:10rem;
+      justify-content: space-evenly;
+  
+      .logoFoodsExplorer {
+    
+        align-items: flex-start;
+
+        .txtLogoSide{
+          flex-direction:column;
+          align-items: flex-end;
+        }
+        img{
+          width:3rem;
+          height:3rem;
+        }
+        h1 {
+          font-size: 2.5rem;
+
+        } 
+    
+      }
+
+          
+      .ordersBTN{
+
+      .desktopDesapear{
+        display:none;
+      }
+      
+      }
+
+      .logOutLogo{
+          svg{
+            display:flex;
+            width:3rem;
+            height:3rem;
+          }
+       }
+    }
+ 
+    .optionsPhone{
+      display:none;
+    }
+
+  
+   .imageOrderLogo{
+      display:none;
+    }
+
+
+  
+
+    .desapear{
+      display: flex;
+      button{
+        white-space: nowrap;
+      display:flex;
+      align-items:center;
+      }
+
+      img{
+        margin-right:1rem;
+      }
+    
+    }
+
+  }
+
 
 
 `;

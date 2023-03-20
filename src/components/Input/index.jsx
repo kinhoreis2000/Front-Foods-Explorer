@@ -1,10 +1,10 @@
 import {Container} from './styles.js'
 
 
-export function Input({placeholder,onChange ,type,icon: Icon, ...rest}) {
+export function Input({placeholder,onChange ,difColor, type,icon: Icon, ...rest}) {
 
   return(
-    <Container >
+    <Container difColor = {difColor}>
      {Icon && <Icon size={20}/>} 
 
 

@@ -27,86 +27,120 @@ const [selectedValue, setSelectedValue] = useState(options[0]);
 
     <Container>
      <HeaderAdmin/>
-       <div className = 'Form'>
+       <div className = 'Form'>   
         <Link>
         <FiArrowLeft/> Voltar 
         </Link>
         <h1>Novo prato</h1>
         <div>
             <Form >
-              <p >Imagem do prato</p>
-             
-
-              <label htmlFor='avatar'>
-                <FiUpload/>Selecione a imagem
+              <div className = 'infoSide'>
+              <div className = 'topInfoSide'>
                 <div>
-                  <input id='avatar' type = 'file'></input>
+                <p >Imagem do prato</p>
+              
+
+                <label   htmlFor='avatar'>
+                  <FiUpload/>Selecione a imagem
+                  <div>
+                    <input id='avatar' type = 'file'></input>
+                  </div>
+                </label>
                 </div>
-              </label>
+                <div>
+
+                <p>Nome</p>
+                <Input 
+                difColor
+                placeholder = 'Ex: Salada Cezar'
+                />
+                </div>
+                <div>
+
+                <p>Categoria</p>
+
+                <InputCategory 
+                placeholder = 'Refeição'
+                selectedValue={selectedValue}
+                difColor
+
+                onSelectionChange={handleSelectionChange}
+                options={options}
+                />
+                </div>
+                
+             </div>
+             <div className = 'bottomInfoSide'>
+              <div>
+                  <p>Ingredientes</p>
+                  <div className='ingredients bckgrndColor'>
+                {/* 
+              {
+                ingredients.map((ingredient, index) => (
+                <MealIngredient
+                  key = {String(index)}
+                  value={tag}
+                  onClick = {() => handleRemoveTag(tag)}
+                  ></MealIngredient>)
+                  )
+                
+                
+              }
+              */}
+              
+              <MealIngredient 
+              value='Pão Naan'
+              >
+              </MealIngredient>
             
-              <p>Nome</p>
-              <Input 
-              
-              placeholder = 'Ex: Salada Cezar'
-              
-              />
-              <p>Categoria</p>
+          
+      
+              <MealIngredient 
+                value='Alface'
 
-              <InputCategory 
-              placeholder = 'Refeição'
-             selectedValue={selectedValue}
-              onSelectionChange={handleSelectionChange}
-              options={options}
-              />
+              >
+              </MealIngredient>
+      
+      
+              <MealIngredient 
+                value='Alface'
 
-              <p>Ingredientes</p>
-              <div className='ingredients'>
-{/* 
-          {
-            ingredients.map((ingredient, index) => (
-            <MealIngredient
-              key = {String(index)}
-              value={tag}
-              onClick = {() => handleRemoveTag(tag)}
-              ></MealIngredient>)
-              )
+              >
+              </MealIngredient>
+      
+      
+              <MealIngredient 
+              placeholder='Adicionar'
+              isNew
+              >
+              </MealIngredient>
             
-            
-          }
-       */}
-          
-          <MealIngredient 
-          value='Pão Naan'
-          >
-           </MealIngredient>
-        
-          
-          <MealIngredient 
-            value='Alface'
+              </div>
+              </div>
+              <div className ='price'>
 
-          >
-           </MealIngredient>
-        
-          
-          <MealIngredient 
-          placeholder='Adicionar'
-           isNew
-          >
-           </MealIngredient>
-        
-          </div>
-              <p>Preço</p>
-              <Input 
-              placeholder = 'R$ 40,00'
-              
-              />
-              <p>Descrição</p>
-              <TxtArea 
-              placeholder = 'Fale brevemente sobre o prato, seus ingredientes e composição'
-              
-              />
+                  <p>Preço</p>
+                  <Input 
+                  placeholder = 'R$ 40,00'
+              difColor
+                  
+                  />
+              </div>
 
-              <RedButton title = 'Salvar alterações'></RedButton> 
+                </div>
+                </div>
+               <div>
+
+                  <p>Descrição</p>
+                  <TxtArea 
+                  placeholder = 'Fale brevemente sobre o prato, seus ingredientes e composição'
+                  />
+                </div>
+
+              <div className = 'saveBtn'>
+
+                  <RedButton  title = 'Salvar alterações'></RedButton> 
+              </div>
 
             </Form>
         </div>

@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 
 export const Container = styled.header`
-  background-color:${({theme})=> theme.COLORS.BACKGROUND_DARK_700};
-
   position: fixed;
   z-index: 3; 
   width: 100%;
+  
+  background-color:${({theme})=> theme.COLORS.BACKGROUND_DARK_700};
+
 
   .header {
     height: 11.4rem;
@@ -20,16 +21,6 @@ export const Container = styled.header`
         height: 2.8rem;
       
     }
-
-    >.logoFoodsExplorer{
-      img{
-        margin-right: 2rem;
-        margin-left: 7vw;
-      }
-        
-      }
-
-
     .logoFoodsExplorer {
       display: flex;
       justify-content: space-around;
@@ -42,6 +33,21 @@ export const Container = styled.header`
    
       
     }
+
+    >.logoFoodsExplorer{
+      img{
+        margin-right: 2rem;
+      }
+        
+    }
+
+    .searchBar{
+      width:50%;
+      div{
+        width:100%;
+      }
+    }
+
 
     .ordersBTN {
       display: flex;
@@ -78,6 +84,15 @@ export const Container = styled.header`
 
 
   }
+
+  .desktopDesapear{
+        display:flex;
+      }
+  .desapear{
+    display: none;
+  }
+  
+
   @media screen and (max-width: 365px) {
     .header {
       justify-content : space-evenly;
@@ -98,11 +113,78 @@ export const Container = styled.header`
 
      
   }
+
   @media screen and (max-width: 513px) {
     h1 {
       line-height: 4rem;
     } 
   }
+
+  @media screen and (min-width: 769px) {
+
+    .header{
+      height:10rem;
+      justify-content: space-evenly;
+  
+          
+      .ordersBTN{
+
+      .desktopDesapear{
+        display:none;
+      }
+      
+      }
+
+      .logOutLogo{
+          svg{
+            display:flex;
+            width:3rem;
+            height:3rem;
+          }
+       }
+    }
+ 
+    .logoFoodsExplorer {
+      img{
+        width:3rem;
+        height:3rem;
+      }
+      h1 {
+        font-size: 2.5rem;
+
+      } 
+   
+    }
+
+    .optionsPhone{
+      display:none;
+    }
+
+  
+   .imageOrderLogo{
+      display:none;
+    }
+
+
+  
+
+    .desapear{
+      display: flex;
+
+      button{
+        white-space:nowrap;
+      display:flex;
+      align-items:center;
+      }
+
+      img{
+        margin-right:1rem;
+      }
+    
+    }
+
+  }
+
 
 
 `;

@@ -1,23 +1,25 @@
 import {Container} from './styles'
 import {Header} from '../../components/Header'
-import {HeaderAdmin} from '../../components/HeaderAdmin'
 import {Footer} from '../../components/Footer'
 import {FoodCard} from '../../components/FoodCard'
 import {FoodCardAdmin} from '../../components/FoodCardAdmin'
 import topHomeImage from '../../assets/topMainImage.svg'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
+import {useState, useEffect} from 'react'
+
 import 'swiper/css/navigation';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 export function Home() {
-  const isadmin = false
+  const [slidesPerView, setSlidesPerView] =  useState(2) 
+  const [spaceBetween, setSpaceBetween] =  useState(100) 
   const meals = [
     {
     name: 'Salada Ravanello',
     price: '49,97',
-    description: '49,97',
+    description: 'MUITA FOME ENQUANTO PENSO NO ALMOÕ',
     category: 'refeicoes',
     photo: 'https://github.com/kinhoreis2000.png'}, {
       
@@ -33,21 +35,54 @@ export function Home() {
     description: '49,97',
     category: 'bebidas',
     photo: 'https://github.com/Diego.png'
+    }
+    , {
+      
+      name: 'Salada Ravanello',
+      price: '49,97',
+      description: '49,97',
+      category: 'bebidas',
+      photo: 'https://github.com/Diego.png'
+      }
+    , {
+      
+    name: 'Salada Ravanello',
+    price: '49,97',
+    description: '49,97',
+    category: 'bebidas',
+    photo: 'https://github.com/Diego.png'
     }]
 
-    
+
+  
+
+
+    useEffect(() => {
+      function updateSlidesPerView() {
+        if (window.innerWidth < 374) {
+          setSlidesPerView(1);
+        } else if (window.innerWidth < 800) {
+          setSlidesPerView(2);
+        } else {
+          setSlidesPerView(4);
+          setSpaceBetween(50);
+        }
+      }
+  
+      window.addEventListener("resize", updateSlidesPerView);
+      updateSlidesPerView();
+  
+      return () => {
+        window.removeEventListener("resize", updateSlidesPerView);
+      };
+    }, []);
   return(
 
     <Container>
 
-      {
-        isadmin? 
-          <HeaderAdmin
-          /> 
-          :  
+   
           <Header
           />
-      }
  
 
      <div className ='pageHome'>
@@ -70,25 +105,17 @@ export function Home() {
               <h3>Refeições</h3>
               <Swiper
                  modules={[Navigation, Pagination, Scrollbar, A11y]}
-                 spaceBetween={200}
-                 slidesPerView={2.5}
-                 style={{ marginLeft: "5vw" }}
+                 spaceBetween={spaceBetween}
+                 slidesPerView={slidesPerView}
+                 style={{ margin: "0 5vw"  }}
+                 className = 'swiper'
                  navigation
                  pagination={{ clickable: true }}
                  scrollbar={{ draggable: true }}
                 >
 
-                {isadmin ?
+                {
                   meals.map(meal => ( 
-                    <SwiperSlide key={String(meal.id)}>
-                      <FoodCardAdmin
-                        meal={meal}
-                        onClick={() => handleDetails(meal.id)}
-                      />
-                    </SwiperSlide>
-                  ))
-                  :
-                  meals.map(meal => (
                     <SwiperSlide key={String(meal.id)}>
                       <FoodCard
                         meal={meal}
@@ -96,6 +123,7 @@ export function Home() {
                       />
                     </SwiperSlide>
                   ))
+                  
                 }
 
  
@@ -106,11 +134,61 @@ export function Home() {
             </div>
             <div className = 'PratosPrincipais'>
               <h3>Sobremesas</h3>
-             
+              <Swiper
+                 modules={[Navigation, Pagination, Scrollbar, A11y]}
+                 spaceBetween={spaceBetween}
+                 slidesPerView={slidesPerView}
+                 style={{ margin: "0 5vw"  }}
+                 className = 'swiper'
+                 navigation
+                 pagination={{ clickable: true }}
+                 scrollbar={{ draggable: true }}
+                >
+
+                {
+                  meals.map(meal => ( 
+                    <SwiperSlide key={String(meal.id)}>
+                      <FoodCardAdmin
+                        meal={meal}
+                        onClick={() => handleDetails(meal.id)}
+                      />
+                    </SwiperSlide>
+                  ))
+                  
+                }
+
+ 
+
+              </Swiper>
             </div>
             <div className = 'Bebidas'>
               <h3>Bebidas</h3>
-            
+              <Swiper
+                 modules={[Navigation, Pagination, Scrollbar, A11y]}
+                 spaceBetween={spaceBetween}
+                 slidesPerView={slidesPerView}
+                 style={{ margin: "0 5vw"  }}
+                 className = 'swiper'
+                 navigation
+                 pagination={{ clickable: true }}
+                 scrollbar={{ draggable: true }}
+                >
+
+                {
+                  meals.map(meal => ( 
+                    <SwiperSlide key={String(meal.id)}>
+                      <FoodCard
+                        meal={meal}
+                        onClick={() => handleDetails(meal.id)}
+                      />
+                    </SwiperSlide>
+                  ))
+                  
+                }
+
+ 
+
+              </Swiper>
             </div>
           <Footer/>
 

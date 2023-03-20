@@ -3,17 +3,15 @@ import styled from 'styled-components';
 export const Container = styled.label`
    display: flex;
   align-items: center;
-  width: 10rem;
-  height: 5rem;
+  height: 3rem;
+  
   background-color : ${({theme, isNew}) => isNew? 'transparent' : theme.COLORS.TXT_LIGHT_600};
   color : ${({theme}) => theme.COLORS.TXT_LIGHT_100};
 
   border: ${({theme, isNew}) => isNew? `1px dashed ${theme.COLORS.TXT_LIGHT_500}` : 'none'};
-
-  margin-bottom: 8px;
-  margin-right: 8px;
+  flex-basis: calc(33.33% - 10px);
+  margin-right: 10px;
   border-radius: 10px;
-
 
   
     >button {
@@ -29,6 +27,9 @@ export const Container = styled.label`
     .button-add {
       color:  ${({theme}) => theme.COLORS.TXT_LIGHT_500};
 
+    }
+    svg{
+      margin-right:1rem;
     }
     > input {
       width: 100%;
@@ -49,6 +50,17 @@ export const Container = styled.label`
       }
 
     }
+    @media screen and (min-width: 769px) {
+    
+      flex-basis: calc(33.33% - 8vw);
+    
+    }
+    @media screen and (min-width: 1000px) {
+    
+      flex-basis: calc(33.33% - 12vw);
+    
+    }
+
 
 
 `

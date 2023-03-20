@@ -31,15 +31,25 @@ export const Container = styled.div`
     justify-content: space-between;
     padding: 1.5rem;
     border-radius: 10%;
-   
+    .mealDesc{
+      display:flex;
+      justify-content: center;
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 1.2rem;
+      text-align: center;
+    }
       .mealName{
         display:flex;
         align-items: center;
         
       }
-    > .favorite {
+    > .edit {
       display: flex;
       justify-content: flex-end;
+      cursor:pointer;
+
       
     }
     .mealphoto {
@@ -95,7 +105,19 @@ export const Container = styled.div`
     min-width: 50vw;
 
   }
+  @media screen and (min-width: 769px) {
+ 
+    min-width: 20vw;
+    max-width: 30vw;
+    >.card{
+      .desapear {
+          display: flex;
+        
+        }
+    
+    }
 
+    }
 
 
 `

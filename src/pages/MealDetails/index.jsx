@@ -28,7 +28,10 @@ export function MealDetails() {
 
           <Link to ='/'><FiArrowLeft/>Voltar</Link>
           <div className = 'DetailsData'>
-            <img src = {meal.photo}/>
+            <div>
+              <img className = 'mealPhoto'src = {meal.photo}/>
+            </div>
+            <div className ='rightSide'>
             <h1>{meal.name}</h1>
             <h3>{meal.description}</h3>
             <div className = 'MealIngredientsSection'>
@@ -55,8 +58,8 @@ export function MealDetails() {
                 <RedButton icon = {orderLogo} title = {`pedir - R$ ${meal.price}`} />
               
               </div>
+             </div>
             </div>
-
           </div>
         </div>
 

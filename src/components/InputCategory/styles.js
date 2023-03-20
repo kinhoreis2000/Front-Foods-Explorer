@@ -20,6 +20,7 @@ export const Container = styled.label`
   font-size: 16px;
   background-color:${({theme})=> theme.COLORS.BACKGROUND_DARK_900};
   color:${({theme})=> theme.COLORS.TXT_LIGHT_100};
+  
 
   }
   select {
@@ -29,7 +30,9 @@ export const Container = styled.label`
     border: none;
     width:100%;
     height:100%;
+
     option{
+
       background-color: ${({theme})=> theme.COLORS.BACKGROUND_DARK_900};
     }
   }

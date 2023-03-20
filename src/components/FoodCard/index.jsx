@@ -21,6 +21,7 @@ export function FoodCard({meal}) {
             <img src = {meal.photo}></img>
           </div>
           <Link className = 'mealName'>{meal.name}</Link>
+          <label className  = 'mealDesc desapear'>{meal.description}</label>
           <p className = 'mealPrice' >{`R$ ${meal.price}`}</p>
           <div className = 'qtdOfOrder'>
             <img src = {minus}/>

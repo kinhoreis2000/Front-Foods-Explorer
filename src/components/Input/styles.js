@@ -10,6 +10,7 @@ export const Container = styled.div`
   background-color:${({theme})=> theme.COLORS.BACKGROUND_DARK_900};
   border-radius: 8.1px;
   height: 4.8rem;
+  background-color : ${({theme, difColor}) => difColor? theme.COLORS.BACKGROUND_DARK_800 : theme.COLORS.BACKGROUND_DARK_900};
 
   input {
   width: 100%;

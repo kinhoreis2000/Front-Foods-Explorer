@@ -14,6 +14,14 @@ export const Container = styled.div`
 
     
   }
+    
+  .rightSide{
+     display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+    }
+
   .MealDetails{
     min-height:100%;
     position:relative;
@@ -21,7 +29,7 @@ export const Container = styled.div`
 
   }
   footer {
-  position: relative;
+  position: fixed;
   bottom: 0;
 }
 
@@ -133,10 +141,43 @@ export const Container = styled.div`
 
     }
    }
-  
- 
+
      
 
-  
+   @media screen and (min-width: 769px) {
+    >.MealDetails{
+      .DetailsData{
+        display:flex;
+        flex-direction:row;
+        align-items:unset;
+      }
+    }
+    .DetailsData{
+      display:flex;
+      flex-direction:row;
+      .mealPhoto{
+        margin:0 3rem;
+        margin-left:10vw;
+      }
+
+    }
+    .rightSide{
+      align-items: flex-start;
+      margin:0 2rem;
+      li:nth-child(1) {
+      margin-left: 0rem;
+      }
+      h3{
+        margin:2rem 0;
+        text-align:start;
+      }
+
+      .qtdOfOrder{
+        margin-left:2rem;
+        padding-left:0;
+      }
+    }
+
+  }
   
 `;

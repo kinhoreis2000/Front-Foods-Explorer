@@ -6,7 +6,7 @@ export const Container = styled.div`
   align-items: flex-start;
   padding: 12px 14px;
   gap: 14px;
-  background-color:${({theme})=> theme.COLORS.BACKGROUND_DARK_900};
+  background-color:${({theme})=> theme.COLORS.BACKGROUND_DARK_800};
   border-radius: 8.1px;
   height: 4.8rem;
   height: 30vh;
@@ -19,7 +19,7 @@ export const Container = styled.div`
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
-  background-color:${({theme})=> theme.COLORS.BACKGROUND_DARK_900};
+  background-color:${({theme})=> theme.COLORS.BACKGROUND_DARK_800};
   color:${({theme})=> theme.COLORS.TXT_LIGHT_100};
 
   }
