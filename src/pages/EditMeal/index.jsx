@@ -28,94 +28,121 @@ const [selectedValue, setSelectedValue] = useState(options[0]);
     <Container>
      <HeaderAdmin/>
        <div className = 'Form'>   
-        <Link>
+        <Link to ='/'>
         <FiArrowLeft/> Voltar 
         </Link>
         <h1>Editar prato</h1>
         <div>
             <Form >
-              <p >Selecione imagem para alterá-la</p>
-             
-
-              <label htmlFor='avatar'>
-                <FiUpload/>Selecione a imagem
+              <div className = 'infoSide'>
+              <div className = 'topInfoSide'>
                 <div>
-                  <input id='avatar' type = 'file'></input>
+                <p >Imagem do prato</p>
+              
+
+                <label   htmlFor='avatar'>
+                  <FiUpload/>Selecione a imagem
+                  <div>
+                    <input id='avatar' type = 'file'></input>
+                  </div>
+                </label>
                 </div>
-              </label>
-            
-              <p>Nome</p>
-              <Input 
-              
-              placeholder = 'Salada Cezar'
-              
-              />
-              <p>Categoria</p>
+                <div>
 
-              <InputCategory 
-              placeholder = 'Refeição'
-             selectedValue={selectedValue}
-              onSelectionChange={handleSelectionChange}
-              options={options}
-              />
+                <p>Nome</p>
+                <Input 
+                difColor
+                placeholder = 'Salada Cezar'
+                />
+                </div>
+                <div>
 
-              <p>Ingredientes</p>
-              <div className='ingredients'>
-            {/* 
-          {
-            ingredients.map((ingredient, index) => (
-            <MealIngredient
-              key = {String(index)}
-              value={tag}
-              onClick = {() => handleRemoveTag(tag)}
-              ></MealIngredient>)
-              )
+                <p>Categoria</p>
+
+                <InputCategory 
+                placeholder = 'Refeição'
+                selectedValue={selectedValue}
+                difColor
+
+                onSelectionChange={handleSelectionChange}
+                options={options}
+                />
+                </div>
+                
+             </div>
+             <div className = 'bottomInfoSide'>
+              <div>
+                  <p>Ingredientes</p>
+                  <div className='ingredients bckgrndColor'>
+                {/* 
+              {
+                ingredients.map((ingredient, index) => (
+                <MealIngredient
+                  key = {String(index)}
+                  value={tag}
+                  onClick = {() => handleRemoveTag(tag)}
+                  ></MealIngredient>)
+                  )
+                
+                
+              }
+              */}
+              
+              <MealIngredient 
+              value='Pão Naan'
+              >
+              </MealIngredient>
             
-            
-          }
-           */}
           
-          <MealIngredient 
-          value='Pão Naan'
-          >
-           </MealIngredient>
-        
-          
-          <MealIngredient 
-            value='Alface'
+      
+              <MealIngredient 
+                value='Alface'
 
-          >
-           </MealIngredient>
-   
-          <MealIngredient 
-            value='Alface'
+              >
+              </MealIngredient>
+      
+      
+              <MealIngredient 
+                value='Alface'
 
-          >
-           </MealIngredient>
-   
-  
-          <MealIngredient 
-          placeholder='Adicionar'
-           isNew
-          >
-           </MealIngredient>
-        
-          </div>
-              <p>Preço</p>
-              <Input 
-              placeholder = 'R$ 40,00'
-              
-              />
-              <p>Descrição</p>
-              <TxtArea 
-              placeholder = 'A Salada César é uma opção refrescante para o verão.'
-              
-              />
-          <div className = 'saveBtn'>
+              >
+              </MealIngredient>
+      
+      
+              <MealIngredient 
+              placeholder='Adicionar'
+              isNew
+              >
+              </MealIngredient>
+            
+              </div>
+              </div>
+              <div className ='price'>
 
-              <RedButton  className ='excludeBtn'title = 'Excluir prato'></RedButton> 
+                  <p>Preço</p>
+                  <Input 
+                  placeholder = 'R$ 40,00'
+              difColor
+                  
+                  />
+              </div>
+
+                </div>
+                </div>
+               <div>
+
+                  <p>Descrição</p>
+                  <TxtArea 
+                  value = 'A Salada César é uma opção refrescante para o verão.'
+                  />
+                </div>
+
+              <div className = 'saveBtn'>
+
+                 
+              <RedButton  className ='excludeBtn' title = 'Excluir prato'></RedButton> 
               <RedButton  title = 'Salvar alterações'></RedButton> 
-          </div>
+              </div>
 
             </Form>
         </div>

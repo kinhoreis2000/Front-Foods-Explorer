@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import 'swiper/css';
 
 export const Container = styled.div`
-    min-width: 40vw;
     background-color:${({theme})=> theme.COLORS.BACKGROUND_DARK_200};
     border: 1px solid ${({theme})=> theme.COLORS.BACKGROUND_DARK_300};
     border-radius: 8px;
@@ -20,7 +19,8 @@ export const Container = styled.div`
 
     }
     button {
-      width: 100%
+      margin-left: 3rem;
+      width: 45%
     }
 
 
@@ -98,26 +98,6 @@ export const Container = styled.div`
     
  
   }
-  @media screen and (max-width: 394px) {
-
-    min-width: 50vw;
-
-  }
-
-  @media screen and (min-width: 769px) {
- 
-    min-width: 20vw;
-    max-width: 30vw;
-    >.card{
-      .desapear {
-          display: flex;
-        
-        }
-    
-    }
-
-    }
-
 
 `
 

@@ -11,6 +11,7 @@ import minus from '../../assets/minus.svg'
 import plus from '../../assets/plus.svg'
 
 export function MealDetails() {
+  const isadmin = false
   var [meal, setMeal] = useState(null);
   meal ={
     name: 'Salada Ravanello',
@@ -48,14 +49,26 @@ export function MealDetails() {
               </div>
             </div>
             <div className = 'orderAndQtd'>
-              <div className = 'qtdOfOrder'>
-                <img src = {minus}/>
-                <label> 01 </label> 
-                <img src = {plus}/> 
-              </div>
+            {isadmin?
+            <></>
+          :
+          
+          <div className = 'qtdOfOrder'>
+            <img src = {minus}/>
+            <label> 01 </label> 
+            <img src = {plus}/> 
+          </div>
+          
+          }
+              
               
               <div className = 'orderBtn'>
-                <RedButton icon = {orderLogo} title = {`pedir - R$ ${meal.price}`} />
+                {isadmin?
+                <RedButton title = 'Editar Prato' alt = 'ClickToEdit'/> 
+                :
+              <RedButton alt = 'ClickToOrder'icon = {orderLogo} title = {`pedir - R$ ${meal.price}`} />
+              }
+                
               
               </div>
              </div>

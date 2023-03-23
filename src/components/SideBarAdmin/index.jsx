@@ -5,7 +5,7 @@ import {TxtLink} from '../TxtLink'
 import close from '../../assets/close.svg'
 import {FiSearch} from 'react-icons/fi'
 import { Link} from 'react-router-dom'
-export function SideBar({active}) {
+export function SideBarAdmin({active}) {
 
   const closeSideBar = () => {
     active(false)
@@ -30,6 +30,7 @@ export function SideBar({active}) {
            </div>
 
            <div className ='sideBarOptions'>
+            <Link to = 'newmeal'>Novo prato</Link>
             <Link to = ''>Sair</Link>
             </div> 
          </div>

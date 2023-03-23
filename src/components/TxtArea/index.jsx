@@ -1,15 +1,9 @@
-import {Container} from './styles.js'
+import {Container} from './styles'
 
-
-export function TxtArea({placeholder,onChange ,icon: Icon, ...rest}) {
-
-  return(
-    <Container >
-     {Icon && <Icon size={20}/>} 
-
-
-      <input placeholder = {placeholder} {...rest} onChange = {onChange} ></input>
+export function TxtArea({value,placeholder, ...rest}) {
+  return (
+    <Container {...rest} placeholder = {placeholder}>
+      {value}
     </Container>
   )
 }
-

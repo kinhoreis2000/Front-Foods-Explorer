@@ -37,7 +37,7 @@ export const Container = styled.div`
       font-size: 1.65459rem;
       line-height: 140%;
       text-decoration: none;
-      color: ${({theme})=> theme.COLORS.TXT_LIGHT_300}
+      color: ${({theme})=> theme.COLORS.TXT_LIGHT_300};
     }
    .PhotoUpload{
 
@@ -50,22 +50,45 @@ export const Container = styled.div`
     font-size: 16px;
     font-weight: 600;
     }
+   
+
     .saveBtn{
-      background-color:transparent;
       display:flex;
-      gap:2rem;
+
+      button:nth-child(1){
+        background-color:${({theme})=> theme.COLORS.BACKGROUND_DARK_800};
+        margin-right: 2rem;
+      }
       button {
+  
       width: 100%;
-      gap: 3rem;
-      margin: 2rem 0 ;
+      gap: 2rem;
+      margin: 2rem 0rem ;
 
     }
-    button:nth-child(1){
-      background-color:  ${({theme})=> theme.COLORS.BACKGROUND_DARK_800}
+    
+  }
+      input{
+
+    background-color: transparent;
     }
-   
+
+    @media screen and (min-width: 769px) {
+
+      .saveBtn{
+        display:flex;
+        justify-content: flex-end;
+
+      button {
+      width: 20%;
+  
+    }
   }
-  }
+  
+  
+    }
+  
+  
   .ingredients{
     display: flex;
     flex-wrap: wrap;
@@ -73,54 +96,137 @@ export const Container = styled.div`
     justify-items: start;
     border-radius: 10px;
     padding: 1rem 1rem;
+   
     input{
 
       background-color: transparent;
     }
-  }
-    label:nth-child(6){
-      background-color:${({theme})=> theme.COLORS.BACKGROUND_DARK_900};
 
-    }
+
+  }
+}
+  footer{
+    margin-top:15vh;
+  }
 `;
 
 export const Form = styled.form`
 
- >label{
-   background-color:${({theme})=> theme.COLORS.BACKGROUND_DARK_800};
-   display: flex;
-   align-items: center;
-   width: 100%;
-   border-radius: 8.1px;
+  .topInfoSide{
+    label{
+    background-color:${({theme})=> theme.COLORS.BACKGROUND_DARK_800};
+    display: flex;
+    align-items: center;
+    width: 100%;
+    border-radius: 8.1px;
     height: 4.8rem;
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 500;
     font-size: 1.6rem;
     gap: 2rem;
+    white-space:nowrap;
 
     line-height: 2.4rem;
     svg{
-      width: 3rem;
+      width: 9rem;
       height: 3rem;
       margin: 0 1rem;
     }
 
      input{
         display:none;
+        width:5rem;
 
       }
     }
+    }
     
-    div {
+    .bckgrndColor{
       background-color:${({theme})=> theme.COLORS.BACKGROUND_DARK_800};
+
+    }
       input{
       background-color:${({theme})=> theme.COLORS.BACKGROUND_DARK_800};
     
       }
-     
 
-    }
+
+      @media screen and (min-width: 320px) {
+        >.infoSide{
+
+        
+        label:nth-child(n+4){
+          margin-top:2rem;
+        }
+      }
+        
+      }
+
+
+
+      @media screen and (min-width: 769px) {
+        
     
-  
+    
+    
+        >.infoSide{
+         .topInfoSide{
+          div:nth-child(1){
+            width:53%
+          }
+          div:nth-child(2){
+            width:100%
+          }
+          div:nth-child(3){
+            width:62%
+          }
+          display:flex;
+          gap:3rem;
+         } 
+         
+         label:nth-child(n+4){
+          margin-top:0rem;
+        }
+         label:nth-child(n+5){
+          margin-top:2rem;
+        }
+
+         .bottomInfoSide{
+          display:flex;
+          div:nth-child(1){
+            width: 78%;
+            margin-right: 2rem;
+          }
+          .price{
+            width: 20%;
+    
+          }
+    
+        
+    
+         } 
+        }
+      }
+      
+
+      @media screen and (min-width: 1000px) {
+        >.infoSide{
+
+          label:nth-child(n+4){
+          margin-top:0rem;
+        }
+         label:nth-child(n+5){
+          margin-top:0rem;
+        }
+
+        label:nth-child(n+6){
+          margin-top:2rem;
+        }
+      }
+        
+      }
+
+
+   
 `;

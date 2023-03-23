@@ -4,11 +4,11 @@ import {useState} from 'react'
 import optionsPhonesvg from '../../assets/optionsPhone.svg'
 import hexagonalLogo from '../../assets/hexagonalLogo.svg'
 import orderLogo from '../../assets/orderLogo.svg'
-import {SideBar} from '../SideBar'
+import {SideBarAdmin} from '../SideBarAdmin'
 import {Input} from '../Input'
 import {FiSearch, FiLogOut} from 'react-icons/fi'
 import {RedButton} from '../RedButton'
-
+import {Link} from 'react-router-dom'
 
 export function HeaderAdmin() {
 
@@ -28,7 +28,7 @@ export function HeaderAdmin() {
           className ='LogoForSideBar'
           onClick = {showSideBar}/>
       
-                {sidebar && <SideBar active = {setSideBar}/>}
+                {sidebar && <SideBarAdmin active = {setSideBar}/>}
           </div>
      
           <div className = 'logoFoodsExplorer'>
@@ -51,9 +51,9 @@ export function HeaderAdmin() {
             <p className = 'desktopDesapear'>0</p>
             
           </div>
-          <div className = ' desapear'>
-              <RedButton title = 'Novo Pedido'></RedButton>
-           </div>
+          <Link to ='newmeal' className = ' desapear'>
+              <RedButton title = 'Novo Prato'></RedButton>
+           </Link>
            <div className = 'logOutLogo desapear'>
              <a> <FiLogOut></FiLogOut></a>
            </div>

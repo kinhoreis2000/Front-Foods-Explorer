@@ -13,14 +13,12 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 export function Home() {
-  const [slidesPerView, setSlidesPerView] =  useState(2) 
-  const [spaceBetween, setSpaceBetween] =  useState(100) 
   const meals = [
     {
     name: 'Salada Ravanello',
     price: '49,97',
     description: 'MUITA FOME ENQUANTO PENSO NO ALMOÕ',
-    category: 'refeicoes',
+    category: 'PratoPrincipal',
     photo: 'https://github.com/kinhoreis2000.png'}, {
       
     name: 'Salada Ravanello',
@@ -57,25 +55,7 @@ export function Home() {
   
 
 
-    useEffect(() => {
-      function updateSlidesPerView() {
-        if (window.innerWidth < 374) {
-          setSlidesPerView(1);
-        } else if (window.innerWidth < 800) {
-          setSlidesPerView(2);
-        } else {
-          setSlidesPerView(4);
-          setSpaceBetween(50);
-        }
-      }
-  
-      window.addEventListener("resize", updateSlidesPerView);
-      updateSlidesPerView();
-  
-      return () => {
-        window.removeEventListener("resize", updateSlidesPerView);
-      };
-    }, []);
+    useEffect(() => {}, []);
   return(
 
     <Container>
@@ -105,9 +85,9 @@ export function Home() {
               <h3>Refeições</h3>
               <Swiper
                  modules={[Navigation, Pagination, Scrollbar, A11y]}
-                 spaceBetween={spaceBetween}
-                 slidesPerView={slidesPerView}
-                 style={{ margin: "0 5vw"  }}
+                 spaceBetween={100}
+                 slidesPerView='auto'
+                 style={{ margin: "0 5vw" ,     paddingRight: '28vw' }}
                  className = 'swiper'
                  navigation
                  pagination={{ clickable: true }}
@@ -115,9 +95,9 @@ export function Home() {
                 >
 
                 {
-                  meals.map(meal => ( 
-                    <SwiperSlide key={String(meal.id)}>
-                      <FoodCard
+                  meals.map(meal => (  
+                    <SwiperSlide key={String(meal.id)}  >
+                      <FoodCardAdmin
                         meal={meal}
                         onClick={() => handleDetails(meal.id)}
                       />
@@ -136,9 +116,9 @@ export function Home() {
               <h3>Sobremesas</h3>
               <Swiper
                  modules={[Navigation, Pagination, Scrollbar, A11y]}
-                 spaceBetween={spaceBetween}
-                 slidesPerView={slidesPerView}
-                 style={{ margin: "0 5vw"  }}
+                 spaceBetween={100}
+                 slidesPerView='auto'
+                 style={{ margin: "0 5vw" ,     paddingRight: '28vw' }}
                  className = 'swiper'
                  navigation
                  pagination={{ clickable: true }}
@@ -147,8 +127,8 @@ export function Home() {
 
                 {
                   meals.map(meal => ( 
-                    <SwiperSlide key={String(meal.id)}>
-                      <FoodCardAdmin
+                    <SwiperSlide key={String(meal.id)}  >
+                      <FoodCard
                         meal={meal}
                         onClick={() => handleDetails(meal.id)}
                       />
@@ -165,9 +145,9 @@ export function Home() {
               <h3>Bebidas</h3>
               <Swiper
                  modules={[Navigation, Pagination, Scrollbar, A11y]}
-                 spaceBetween={spaceBetween}
-                 slidesPerView={slidesPerView}
-                 style={{ margin: "0 5vw"  }}
+                 spaceBetween={100}
+                 slidesPerView='auto'
+                 style={{ margin: "0 5vw" ,     paddingRight: '28vw' }}
                  className = 'swiper'
                  navigation
                  pagination={{ clickable: true }}
@@ -176,7 +156,7 @@ export function Home() {
 
                 {
                   meals.map(meal => ( 
-                    <SwiperSlide key={String(meal.id)}>
+                    <SwiperSlide key={String(meal.id)}  >
                       <FoodCard
                         meal={meal}
                         onClick={() => handleDetails(meal.id)}

@@ -27,9 +27,9 @@ export function FoodCard({meal}) {
             <img src = {minus}/>
             <label> 01 </label> 
             <img src = {plus}/> 
+            <RedButton title = 'incluir'></RedButton>
           </div>
         </div>
-        <RedButton title = 'incluir'></RedButton>
       </Container>
     )
 }

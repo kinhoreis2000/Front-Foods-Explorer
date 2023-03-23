@@ -34,6 +34,7 @@ export const Container = styled.div`
   }
   .searchBarInput{
     margin: 0 1.2rem;
+
   }
   .sideBarOptions{
     margin: 1rem 1.5rem;

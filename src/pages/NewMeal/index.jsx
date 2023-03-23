@@ -28,7 +28,7 @@ const [selectedValue, setSelectedValue] = useState(options[0]);
     <Container>
      <HeaderAdmin/>
        <div className = 'Form'>   
-        <Link>
+        <Link to = '/'>
         <FiArrowLeft/> Voltar 
         </Link>
         <h1>Novo prato</h1>

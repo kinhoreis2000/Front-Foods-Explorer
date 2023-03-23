@@ -66,12 +66,12 @@ export const Container = styled.div`
 
 
       .UserInteraction{
-        background-color: red;
+
         padding: 6.4rem;
         border-radius: 16px;
         background-color : ${({theme})=> theme.COLORS.BACKGROUND_DARK_700};
-
-
+        width: 45rem;
+        height: 49rem;
 
       }
       .logoSide {
@@ -128,7 +128,7 @@ export const Form = styled.form`
 
 
   p {
-    margin-bottom: 8px;
+    margin: 15px 8px;
   }
 
   button {

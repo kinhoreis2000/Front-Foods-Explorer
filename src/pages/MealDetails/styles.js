@@ -36,6 +36,12 @@ export const Container = styled.div`
 
    >.MealDetails {
     padding-top: 19vh;
+    h1{
+      font-family: 'Poppins';
+      font-style: normal;
+      font-weight: 500;
+      font-size: 3.5rem;
+    }
     h3{
         font-family: 'Poppins';
         font-style: normal;
@@ -77,11 +83,14 @@ export const Container = styled.div`
 
     }
     .orderBtn{
-      
+      display:flex;
+      div:nth-child(2){
+        margin:0 2rem;
+      }
       button{
         display:flex;
         align-items:center;
-        margin-right: 3rem;
+        margin-top:3rem;
         min-width: 20.5rem;
       
       }
@@ -93,6 +102,8 @@ export const Container = styled.div`
     }
     .orderAndQtd{
      display: flex;
+     align-items: baseline;
+
      margin-bottom: 24vh;
 
      

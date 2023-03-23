@@ -43,7 +43,7 @@ export function SignUp() {
               <RedButton title = 'Criar conta'></RedButton> 
 
             </Form>
-            <footer className = "info"> <Link to = '/signin'>Já tenho uma conta</Link> </footer>
+            <footer className = "info"> <Link to = '/'>Já tenho uma conta</Link> </footer>
         </div>
  
       </main>

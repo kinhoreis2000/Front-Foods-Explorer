@@ -11,7 +11,7 @@ import {RedButton} from '../RedButton'
 import {FiSearch, FiLogOut} from 'react-icons/fi'
 
 export function Header() {
-  const isadmin = false
+  const isadmin = true
   const [sidebar, setSideBar] = useState(false)
   const showSideBar = () =>setSideBar(!sidebar)
 
@@ -45,7 +45,7 @@ export function Header() {
             <h1>food explorer</h1>
           </div>
           <div className = 'searchBar desapear'>
-              <Input placeholder = 'Busque por pratos ou ingredientes' icon = {FiSearch}></Input>
+              <Input className = 'searchInput'placeholder = 'Busque por pratos ou ingredientes' icon = {FiSearch}></Input>
            </div>
           
           <div className = 'ordersBTN'>

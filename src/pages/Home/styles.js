@@ -3,7 +3,8 @@ import 'swiper/css';
 
 export const Container = styled.div`
 
-
+  .swiper-slide { width: 25rem }
+  
   .pageHome{
     width: 100vw;
     min-height: calc(100% - 3rem);
