@@ -10,18 +10,58 @@ import {MealIngredient} from '../../components/MealIngredient'
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FiArrowLeft, FiUpload} from 'react-icons/fi'
+import {api} from '../../services/api'
 
 
 export function NewMeal() {
   const options = ["Prato Principal", "Sobremesas", "Bebidas"];
-const [selectedValue, setSelectedValue] = useState(options[0]);
+  
+  const [title, setTitle] = useState('')
+  const [image, setImage] = useState('')
+  const [imageFile, setImageFile] = useState()
+  const [category, setCategory] = useState(options[0]);
+  const [description, setDescription] = useState('')
+  const [ingredients, setIngredients] = useState([])
+  const [price, setPrice] = useState('')
 
-  const handleSelectionChange = (event) => {
- setSelectedValue(event.target.value);
-  };
 
-  function hangleChangeAvatar() {
+ 
+  function handleBlur(e) {
+    const formattedPrice = `R$ ${e.target.value}`
+    setPrice(formattedPrice)
     
+    console.log(e.target.value)
+    console.log(formattedPrice)
+    
+  }
+
+  async function handleSaveMealSubmit(e){
+    e.preventDefault()
+    setIngredients(['md','ss'])
+
+
+  const meal = {
+    title,
+    image,
+    description,
+    category,
+    price,
+    ingredients: ['md','ss']
+  }
+  console.log(meal)
+    await api.post('/meals', meal)
+
+
+  }
+
+  function handleChangeImage(e) {
+    const file = e.target.files[0];
+    setImageFile(file)
+
+    const imagePreview = URL.createObjectURL(file)
+    setImage(imagePreview)
+
+    console.log(file, imagePreview)
   }
   return(
 
@@ -29,11 +69,11 @@ const [selectedValue, setSelectedValue] = useState(options[0]);
      <HeaderAdmin/>
        <div className = 'Form'>   
         <Link to = '/'>
-        <FiArrowLeft/> Voltar 
+          <FiArrowLeft/> Voltar 
         </Link>
         <h1>Novo prato</h1>
         <div>
-            <Form >
+            <Form onSubmit = {handleSaveMealSubmit}>
               <div className = 'infoSide'>
               <div className = 'topInfoSide'>
                 <div>
@@ -41,9 +81,13 @@ const [selectedValue, setSelectedValue] = useState(options[0]);
               
 
                 <label   htmlFor='avatar'>
-                  <FiUpload/>Selecione a imagem
+                  <FiUpload />Selecione a imagem
                   <div>
-                    <input id='avatar' type = 'file'></input>
+                    <input 
+                    id='avatar' 
+                    type = 'file'
+                    onChange = {handleChangeImage}
+                    ></input>
                   </div>
                 </label>
                 </div>
@@ -53,6 +97,7 @@ const [selectedValue, setSelectedValue] = useState(options[0]);
                 <Input 
                 difColor
                 placeholder = 'Ex: Salada Cezar'
+                onChange = {(e)=> setTitle(e.target.value)}
                 />
                 </div>
                 <div>
@@ -61,10 +106,10 @@ const [selectedValue, setSelectedValue] = useState(options[0]);
 
                 <InputCategory 
                 placeholder = 'Refeição'
-                selectedValue={selectedValue}
+                category={category}
                 difColor
 
-                onSelectionChange={handleSelectionChange}
+                onSelectionChange={(e)=>setCategory(e.target.value)}
                 options={options}
                 />
                 </div>
@@ -88,26 +133,7 @@ const [selectedValue, setSelectedValue] = useState(options[0]);
               }
               */}
               
-              <MealIngredient 
-              value='Pão Naan'
-              >
-              </MealIngredient>
-            
-          
-      
-              <MealIngredient 
-                value='Alface'
-
-              >
-              </MealIngredient>
-      
-      
-              <MealIngredient 
-                value='Alface'
-
-              >
-              </MealIngredient>
-      
+        
       
               <MealIngredient 
               placeholder='Adicionar'
@@ -121,10 +147,16 @@ const [selectedValue, setSelectedValue] = useState(options[0]);
 
                   <p>Preço</p>
                   <Input 
-                  placeholder = 'R$ 40,00'
-              difColor
+                  type ='text'
+                  placeholder = 'R$ 00,00'
+                  mask="R$ 00,00"
+                  value={price}
+                  onChange={e => setPrice(e.target.value)}
+                  difColor
                   
                   />
+                  
+              
               </div>
 
                 </div>
@@ -133,13 +165,14 @@ const [selectedValue, setSelectedValue] = useState(options[0]);
 
                   <p>Descrição</p>
                   <TxtArea 
+                  onChange = {(e) => setDescription(e.target.value)}
                   placeholder = 'Fale brevemente sobre o prato, seus ingredientes e composição'
                   />
                 </div>
 
               <div className = 'saveBtn'>
 
-                  <RedButton  title = 'Salvar alterações'></RedButton> 
+                  <RedButton  title = 'Novo prato'></RedButton> 
               </div>
 
             </Form>

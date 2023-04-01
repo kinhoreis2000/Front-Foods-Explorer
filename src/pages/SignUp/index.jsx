@@ -4,13 +4,25 @@ import {RedButton} from '../../components/RedButton'
 import HexagonalLogo from '../../assets/HexagonalLogo.svg'
 import {useState} from 'react'
 import { Link } from 'react-router-dom';
-
+import {api} from '../../services/api'
 
 export function SignUp() {
   const [fullName, setFullName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   
+
+  async function handleFormSubmit(event) {
+    event.preventDefault();
+        if(!fullName || !email || !password){
+      alert('preencha todos os campos')
+      return
+    }
+     await api.post('/users',{name :fullName, email, password})
+
+     alert('usuário cadastrado com sucesso')
+
+  }
   return(
     <Container>
       <main>
@@ -19,7 +31,7 @@ export function SignUp() {
           <h1>food explorer</h1>
         </header> 
           <div className ='UserInteraction'>
-            <Form className = 'contentSide'>
+            <Form onSubmit = {handleFormSubmit} className = 'contentSide'>
               <h2 className= 'desapear'>Crie sua conta</h2>
 
               <p className='inputField'>Nome completo</p>
@@ -37,7 +49,8 @@ export function SignUp() {
               <p className='inputField'>Senha</p>
               <Input 
               onChange = {(e)=>{setPassword(e.target.value)}}
-              placeholder = 'No mínimo 6 caracteres'>
+              placeholder = 'No mínimo 6 caracteres'
+              type= 'password'>
               </Input>
              
               <RedButton title = 'Criar conta'></RedButton> 

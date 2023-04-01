@@ -5,7 +5,7 @@ export function RedButton({title,icon : Icon,alt, ...rest}) {
 
 
   return(
-    <Container title ={title}>
+    <Container  title ={title}>
       {
         Icon ?
         <img src = {Icon} alt ={alt}/>

@@ -14,10 +14,10 @@ import { FiArrowLeft, FiUpload} from 'react-icons/fi'
 
 export function EditMeal() {
   const options = ["Prato Principal", "Sobremesas", "Bebidas"];
-const [selectedValue, setSelectedValue] = useState(options[0]);
+  const [selectedValue, setSelectedValue] = useState(options[0]);
 
   const handleSelectionChange = (event) => {
- setSelectedValue(event.target.value);
+  setSelectedValue(event.target.value);
   };
 
   function hangleChangeAvatar() {

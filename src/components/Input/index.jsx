@@ -1,4 +1,5 @@
 import {Container} from './styles.js'
+import { IMaskInput } from 'react-imask';
 
 
 export function Input({placeholder,onChange ,difColor, type,icon: Icon, ...rest}) {
@@ -8,7 +9,7 @@ export function Input({placeholder,onChange ,difColor, type,icon: Icon, ...rest}
      {Icon && <Icon size={20}/>} 
 
 
-      <input type = {type} placeholder = {placeholder} {...rest} onChange = {onChange} ></input>
+      <IMaskInput type = {type} placeholder = {placeholder} {...rest} onChange = {onChange} ></IMaskInput>
     </Container>
   )
 }
