@@ -16,7 +16,10 @@ export function Header() {
   const showSideBar = () =>setSideBar(!sidebar)
 
 
-
+  function handleLogOut(){
+    localStorage.removeItem('foodsExplorer:token')
+    localStorage.removeItem('foodsExplorer:user')
+  }
 
   if(isadmin) {
     return(
@@ -60,7 +63,7 @@ export function Header() {
               <RedButton title = 'pedidos (0)' icon = {orderLogo}></RedButton>
            </div>
            <div className = 'logOutLogo desapear'>
-           <a> <FiLogOut></FiLogOut></a>
+           <a onClick = {handleLogOut}> <FiLogOut></FiLogOut></a>
            </div>
         </div>
    

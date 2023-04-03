@@ -23,35 +23,39 @@ export function NewMeal() {
   const [description, setDescription] = useState('')
   const [ingredients, setIngredients] = useState([])
   const [price, setPrice] = useState('')
+  const [newIngredient, setNewIngredient] = useState('')
 
 
- 
-  function handleBlur(e) {
-    const formattedPrice = `R$ ${e.target.value}`
-    setPrice(formattedPrice)
+  function handleRemoveIngredient(deleted){
+    setIngredients(prevState=> prevState.filter(ingredient => ingredient !== deleted))
+    setNewIngredient('')
     
-    console.log(e.target.value)
-    console.log(formattedPrice)
     
   }
+
+  function handleAddIngredient(){
+    setIngredients(prevState=> [...prevState, newIngredient])
+    setNewIngredient('')
+    
+    
+  }
+
 
   async function handleSaveMealSubmit(e){
     e.preventDefault()
-    setIngredients(['md','ss'])
 
+    const meal = {
+      title,
+      image,
+      description,
+      category,
+      price,
+      ingredients
+    }
+    console.log(meal)
+      await api.post('/meals', meal)
 
-  const meal = {
-    title,
-    image,
-    description,
-    category,
-    price,
-    ingredients: ['md','ss']
-  }
-  console.log(meal)
-    await api.post('/meals', meal)
-
-
+    alert('A tentativa de cadastrar a comida foi feita com sucesso!')
   }
 
   function handleChangeImage(e) {
@@ -119,25 +123,28 @@ export function NewMeal() {
               <div>
                   <p>Ingredientes</p>
                   <div className='ingredients bckgrndColor'>
-                {/* 
-              {
+                {
+              
                 ingredients.map((ingredient, index) => (
                 <MealIngredient
                   key = {String(index)}
-                  value={tag}
-                  onClick = {() => handleRemoveTag(tag)}
+                  value={ingredient}
+                  onClick = {() => handleRemoveIngredient(ingredient)}
                   ></MealIngredient>)
                   )
                 
                 
+              
               }
-              */}
               
         
       
               <MealIngredient 
               placeholder='Adicionar'
               isNew
+              value ={newIngredient}
+              onChange= {e=>setNewIngredient(e.target.value)}
+              onClick = {handleAddIngredient}
               >
               </MealIngredient>
             

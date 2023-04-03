@@ -19,9 +19,9 @@ export function FoodCardAdmin({meal}) {
           <div className = 'mealphoto'>
             <img src = {meal.photo}></img>
           </div>
-          <Link to = '/details/?id'className = 'mealName'>{meal.name} <FiArrowRight  style={{ marginLeft: "2px" }} /></Link>
+          <Link to = '/details/?id'className = 'mealName'>{meal.title} <FiArrowRight  style={{ marginLeft: "2px" }} /></Link>
           <label className  = 'mealDesc desapear'>{meal.description}</label>
-          <p className = 'mealPrice' >{`R$ ${meal.price}`}</p>
+          <p className = 'mealPrice' >{`${meal.price}`}</p>
         </div>
       </Container>
     )

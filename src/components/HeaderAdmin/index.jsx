@@ -9,13 +9,15 @@ import {Input} from '../Input'
 import {FiSearch, FiLogOut} from 'react-icons/fi'
 import {RedButton} from '../RedButton'
 import {Link} from 'react-router-dom'
+import {useAuth} from '../../hooks/auth';
+
 
 export function HeaderAdmin() {
+  const {signOut, user} = useAuth()
 
   const [sidebar, setSideBar] = useState(false)
   const showSideBar = () =>setSideBar(!sidebar)
 
-  
     return(
       <Container>
           <div className = 'header'>
@@ -55,7 +57,7 @@ export function HeaderAdmin() {
               <RedButton title = 'Novo Prato'></RedButton>
            </Link>
            <div className = 'logOutLogo desapear'>
-             <a> <FiLogOut></FiLogOut></a>
+             <a onClick = {signOut}> <FiLogOut></FiLogOut></a>
            </div>
         </div>
    
