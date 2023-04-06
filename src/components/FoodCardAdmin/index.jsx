@@ -3,10 +3,10 @@ import {Container} from './styles'
 import edit from '../../assets/edit.svg'
 import { FiArrowRight} from 'react-icons/fi'
 import {Link} from 'react-router-dom'
-
+import {api} from '../../services/api'
 export function FoodCardAdmin({meal}) {
 
-
+  const mealUrl = `${api.defaults.baseURL}files/${meal.image}`
 
 
     return(
@@ -17,7 +17,7 @@ export function FoodCardAdmin({meal}) {
           </div>
 
           <div className = 'mealphoto'>
-            <img src = {meal.photo}></img>
+            <img src = {mealUrl}></img>
           </div>
           <Link to = '/details/?id'className = 'mealName'>{meal.title} <FiArrowRight  style={{ marginLeft: "2px" }} /></Link>
           <label className  = 'mealDesc desapear'>{meal.description}</label>

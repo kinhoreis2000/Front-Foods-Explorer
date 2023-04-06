@@ -5,8 +5,11 @@ import {Link} from 'react-router-dom'
 import heart from '../../assets/heart.svg'
 import minus from '../../assets/minus.svg'
 import plus from '../../assets/plus.svg'
+import {api} from '../../services/api'
+
 export function FoodCard({meal}) {
 
+  const mealUrl = `${api.defaults.baseURL}files/${meal.image}`
 
 
 
@@ -18,9 +21,9 @@ export function FoodCard({meal}) {
           </div>
 
           <div className = 'mealphoto'>
-            <img src = {meal.photo}></img>
+            <img src = {mealUrl}></img>
           </div>
-          <Link className = 'mealName'>{meal.name}</Link>
+          <Link className = 'mealName'>{meal.title}</Link>
           <label className  = 'mealDesc desapear'>{meal.description}</label>
           <p className = 'mealPrice' >{`R$ ${meal.price}`}</p>
           <div className = 'qtdOfOrder'>

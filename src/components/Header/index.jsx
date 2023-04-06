@@ -6,12 +6,10 @@ import hexagonalLogo from '../../assets/hexagonalLogo.svg'
 import orderLogo from '../../assets/orderLogo.svg'
 import {SideBar} from '../SideBar'
 import {Input} from '../Input'
-import {HeaderAdmin} from '../HeaderAdmin'
 import {RedButton} from '../RedButton'
 import {FiSearch, FiLogOut} from 'react-icons/fi'
 
 export function Header() {
-  const isadmin = true
   const [sidebar, setSideBar] = useState(false)
   const showSideBar = () =>setSideBar(!sidebar)
 
@@ -21,11 +19,7 @@ export function Header() {
     localStorage.removeItem('foodsExplorer:user')
   }
 
-  if(isadmin) {
-    return(
-      <HeaderAdmin/>
-    )
-  }  else {
+
     return(
       <Container >
         <div className = 'header'>
@@ -70,6 +64,5 @@ export function Header() {
 
       </Container>
     )
-  }
     
 }

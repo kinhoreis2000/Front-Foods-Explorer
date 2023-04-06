@@ -12,11 +12,13 @@ import {Link} from 'react-router-dom'
 import {useAuth} from '../../hooks/auth';
 
 
-export function HeaderAdmin() {
+export function HeaderAdmin({setSearch}) {
   const {signOut, user} = useAuth()
-
   const [sidebar, setSideBar] = useState(false)
+
+
   const showSideBar = () =>setSideBar(!sidebar)
+
 
     return(
       <Container>
@@ -44,7 +46,9 @@ export function HeaderAdmin() {
           </div>
 
           <div className = 'searchBar desapear'>
-              <Input placeholder = 'Busque por pratos ou ingredientes' icon = {FiSearch}></Input> 
+              <Input onChange = {(e)=> setSearch(e.target.value)}
+              placeholder = 'Busque por pratos ou ingredientes' 
+              icon = {FiSearch}></Input> 
           </div>
            
 

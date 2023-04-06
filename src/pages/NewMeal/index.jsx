@@ -6,9 +6,8 @@ import {RedButton} from '../../components/RedButton'
 import {Input} from '../../components/Input'
 import {InputCategory} from '../../components/InputCategory'
 import {MealIngredient} from '../../components/MealIngredient'
-
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FiArrowLeft, FiUpload} from 'react-icons/fi'
 import {api} from '../../services/api'
 
@@ -26,10 +25,11 @@ export function NewMeal() {
   const [newIngredient, setNewIngredient] = useState('')
 
 
+  const navigate = useNavigate()
+
   function handleRemoveIngredient(deleted){
     setIngredients(prevState=> prevState.filter(ingredient => ingredient !== deleted))
     setNewIngredient('')
-    
     
   }
 
@@ -40,10 +40,16 @@ export function NewMeal() {
     
   }
 
+  function handleAddImage(e) {
+    const file = e.target.files[0];
+    setImageFile(file)
 
+    const imagePreview = URL.createObjectURL(file)
+    setImage(imagePreview)
+
+  }
   async function handleSaveMealSubmit(e){
     e.preventDefault()
-
     const meal = {
       title,
       image,
@@ -52,21 +58,14 @@ export function NewMeal() {
       price,
       ingredients
     }
-    console.log(meal)
       await api.post('/meals', meal)
 
     alert('A tentativa de cadastrar a comida foi feita com sucesso!')
+    navigate('/')
+
   }
 
-  function handleChangeImage(e) {
-    const file = e.target.files[0];
-    setImageFile(file)
 
-    const imagePreview = URL.createObjectURL(file)
-    setImage(imagePreview)
-
-    console.log(file, imagePreview)
-  }
   return(
 
     <Container>
@@ -90,7 +89,7 @@ export function NewMeal() {
                     <input 
                     id='avatar' 
                     type = 'file'
-                    onChange = {handleChangeImage}
+                    onChange = {handleAddImage}
                     ></input>
                   </div>
                 </label>
@@ -153,6 +152,7 @@ export function NewMeal() {
               <div className ='price'>
 
                   <p>Preço</p>
+
                   <Input 
                   type ='text'
                   placeholder = 'R$ 00,00'
@@ -160,7 +160,6 @@ export function NewMeal() {
                   value={price}
                   onChange={e => setPrice(e.target.value)}
                   difColor
-                  
                   />
                   
               

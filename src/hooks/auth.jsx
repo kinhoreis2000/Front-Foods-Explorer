@@ -30,7 +30,7 @@ function AuthProvider({children}){
 
     setData({})
   }
-
+  
   useEffect(()=>{
     const token = localStorage.getItem('@foodsExplorer:token')
     const user = localStorage.getItem('@foodsExplorer:user')
