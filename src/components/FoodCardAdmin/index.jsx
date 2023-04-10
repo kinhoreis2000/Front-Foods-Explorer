@@ -8,7 +8,6 @@ export function FoodCardAdmin({meal}) {
 
   const mealUrl = `${api.defaults.baseURL}files/${meal.image}`
 
-
     return(
       <Container >
         <div className= 'card' >
