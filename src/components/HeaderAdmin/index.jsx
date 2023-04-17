@@ -16,8 +16,11 @@ export function HeaderAdmin({setSearch}) {
   const {signOut, user} = useAuth()
   const [sidebar, setSideBar] = useState(false)
 
+  function showSideBar() {
+    setSearch('')
+    setSideBar(!sidebar)
 
-  const showSideBar = () =>setSideBar(!sidebar)
+  } 
 
 
     return(
@@ -30,9 +33,9 @@ export function HeaderAdmin({setSearch}) {
           src = {optionsPhonesvg}
           alt='Logo para sideBar'
           className ='LogoForSideBar'
-          onClick = {showSideBar}/>
+          onClick = {showSideBar} />
       
-                {sidebar && <SideBarAdmin active = {setSideBar}/>}
+                {sidebar && <SideBarAdmin  setSearch = {setSearch} active = {setSideBar}/>}
           </div>
      
           <div className = 'logoFoodsExplorer'>

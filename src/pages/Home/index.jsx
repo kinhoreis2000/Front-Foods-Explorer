@@ -14,16 +14,18 @@ import 'swiper/css/navigation';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
-
+import {useNavigate} from 'react-router-dom'
 
 export function Home() {
   const [refeicoes, setRefeicoes] = useState([])
   const [search, setSearch] = useState('');
   const [sobremesas, setSobremesas] = useState([])
   const [bebidas, setBebidas] = useState([])
-
   const {user} = useAuth()
-
+  console.log(search)
+  const navigate = useNavigate()
+  
+  
 
 
     useEffect(() => {
@@ -48,7 +50,7 @@ export function Home() {
         <Container>
     
        
-              <HeaderAdmin setSearch = {setSearch}
+              <HeaderAdmin setSearch = {setSearch} 
               />
      
     
@@ -87,7 +89,7 @@ export function Home() {
                           <FoodCardAdmin
                           
                             meal={meal}
-                            onClick={() => handleDetails(meal.id)}
+                           
                           />
                         </SwiperSlide>
                       ))

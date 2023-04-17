@@ -10,14 +10,12 @@ import {RedButton} from '../RedButton'
 import {FiSearch, FiLogOut} from 'react-icons/fi'
 
 export function Header() {
+  const {signOut, user} = useAuth()
+
   const [sidebar, setSideBar] = useState(false)
   const showSideBar = () =>setSideBar(!sidebar)
 
 
-  function handleLogOut(){
-    localStorage.removeItem('foodsExplorer:token')
-    localStorage.removeItem('foodsExplorer:user')
-  }
 
 
     return(
@@ -57,7 +55,7 @@ export function Header() {
               <RedButton title = 'pedidos (0)' icon = {orderLogo}></RedButton>
            </div>
            <div className = 'logOutLogo desapear'>
-           <a onClick = {handleLogOut}> <FiLogOut></FiLogOut></a>
+           <a onClick = {signOut}> <FiLogOut></FiLogOut></a>
            </div>
         </div>
    

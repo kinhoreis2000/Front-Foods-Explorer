@@ -7,33 +7,154 @@ import {Input} from '../../components/Input'
 import {InputCategory} from '../../components/InputCategory'
 import {MealIngredient} from '../../components/MealIngredient'
 
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link , useNavigate} from 'react-router-dom';
 import { FiArrowLeft, FiUpload} from 'react-icons/fi'
+import {useParams} from 'react-router-dom'
+import {api} from '../../services/api'
+import {useAuth} from '../../hooks/auth'
 
 
 export function EditMeal() {
-  const options = ["Prato Principal", "Sobremesas", "Bebidas"];
+  const options = ["Refeições", "Sobremesas", "Bebidas"];
   const [selectedValue, setSelectedValue] = useState(options[0]);
+  const params = useParams()
+  const [meal, setMeal] = useState({})
+  const [title, setTitle] = useState('')
+  const [description, setDescription] = useState('')
+  const [search, setSearch] = useState('')
+  const [price, setPrice] = useState('')
+  const [ingredients, setIngredients] = useState('')
+  const [newIngredient, setNewIngredient] = useState('')
+  const [ingredientsData, setIngredientsData] = useState('')
 
+  const [imageFile, setImageFile] = useState('')
+
+  const navigate = useNavigate()
+  const {user} = useAuth()
+
+  function handleAddImage(e) {
+    const file = e.target.files[0];
+    setImageFile(file)
+  }
   const handleSelectionChange = (event) => {
   setSelectedValue(event.target.value);
+
   };
 
-  function hangleChangeAvatar() {
+  async function handleDeleteMeal(){
+    const confirm = window.confirm('Deseja realmente deletar essa refeição?')
+
+    if(confirm) {
+      await api.delete(`/meals/${params.id}`)
+      alert('Foi deletado com sucesso')
+      navigate('/')
+    }else {
+
+    }
     
   }
+  function handleRemoveIngredient(deleted){
+
+    setIngredients(prevState=> prevState.filter(ingredient => ingredient !== deleted))
+    setNewIngredient('')
+    
+  }
+
+  function handleAddIngredient(){
+    setIngredients(prevState => [...prevState, newIngredient])
+  }
+
+
+  async function handleEditMeal (e){
+    e.preventDefault()
+    console.log({
+      title,
+      description,
+      ingredients,
+      price,
+      category: selectedValue
+    })
+    const meal = {
+      title,
+      description,
+      ingredients,
+      price,
+      category: selectedValue
+    }
+
+    if(imageFile) {
+      try{
+
+        const fileUploadForm = new FormData()
+
+        fileUploadForm.append('image',imageFile)
+
+        await api.patch(`/meals/image/${params.id}`, fileUploadForm, {  
+          headers: {
+          'Content-Type': 'multipart/form-data'
+        }})
+
+
+        await api.put(`/meals/${params.id}`, meal)
+        alert('Sua refeição foi atualizada com sucesso!')
+        navigate('/')
+      } catch(error){
+        console.error(error)
+      }
+
+    } 
+    else {
+      try{
+        await api.put(`/meals/${params.id}`, meal)
+        alert('Sua refeição foi atualizada com sucesso!')
+      } catch(error){
+        console.error(error)
+      }
+    }
+  }
+
+
+  useEffect(()=>{
+    async function fetchMeal(){
+      const response = await api.get(`/meals/${params.id}`)
+      setMeal(response.data)
+    }
+    fetchMeal()
+  } , [params.id])
+
+  useEffect(()=>{
+    async function fetchMealDetails(){
+      
+      setTitle(meal.title)
+      setPrice(meal.price)
+      setDescription(meal.description)
+      setIngredientsData(meal.ingredients)
+      setIngredients(ingredientsData.map((ingredient)=> ingredient.name))
+
+      
+    }
+    fetchMealDetails()
+  } , [meal])
+
+  useEffect(()=>{
+    if (ingredientsData) {
+      setIngredients(ingredientsData.map((ingredient)=> ingredient.name))
+    }
+  }, [ingredientsData])
+
   return(
 
     <Container>
-     <HeaderAdmin/>
+     <HeaderAdmin setSearch = {setSearch} />
+     {meal &&
        <div className = 'Form'>   
         <Link to ='/'>
         <FiArrowLeft/> Voltar 
         </Link>
         <h1>Editar prato</h1>
         <div>
-            <Form >
+            <Form  >
               <div className = 'infoSide'>
               <div className = 'topInfoSide'>
                 <div>
@@ -43,16 +164,22 @@ export function EditMeal() {
                 <label   htmlFor='avatar'>
                   <FiUpload/>Selecione a imagem
                   <div>
-                    <input id='avatar' type = 'file'></input>
+                    <input 
+                    id='avatar'
+                    type = 'file'
+                    onChange = {handleAddImage}
+                    ></input>
                   </div>
                 </label>
                 </div>
                 <div>
 
                 <p>Nome</p>
+              
                 <Input 
                 difColor
-                placeholder = 'Salada Cezar'
+                value = {title}
+                onChange = {e => setTitle(e.target.value)}
                 />
                 </div>
                 <div>
@@ -74,56 +201,41 @@ export function EditMeal() {
               <div>
                   <p>Ingredientes</p>
                   <div className='ingredients bckgrndColor'>
-                {/* 
-              {
+
+
+              { ingredients &&
+
                 ingredients.map((ingredient, index) => (
                 <MealIngredient
                   key = {String(index)}
-                  value={tag}
-                  onClick = {() => handleRemoveTag(tag)}
+                  value={ingredient}
+                  onClick = {() => handleRemoveIngredient(ingredient)}
+
                   ></MealIngredient>)
                   )
                 
                 
               }
-              */}
+              <MealIngredient
+                onChange= {e=>setNewIngredient(e.target.value)}
+                value ={newIngredient}
+                placeholder='Adicionar'
+                isNew
+                onClick = {handleAddIngredient}
               
-              <MealIngredient 
-              value='Pão Naan'
-              >
-              </MealIngredient>
-            
-          
-      
-              <MealIngredient 
-                value='Alface'
-
-              >
-              </MealIngredient>
-      
-      
-              <MealIngredient 
-                value='Alface'
-
-              >
-              </MealIngredient>
-      
-      
-              <MealIngredient 
-              placeholder='Adicionar'
-              isNew
-              >
-              </MealIngredient>
-            
+              />
+           
               </div>
               </div>
               <div className ='price'>
 
                   <p>Preço</p>
                   <Input 
-                  placeholder = 'R$ 40,00'
-              difColor
-                  
+                    difColor
+                    mask="R$ 00,00"
+                    type ='text'
+                    value = {price}
+                    onChange = {e => setPrice(e.target.value)}
                   />
               </div>
 
@@ -132,26 +244,32 @@ export function EditMeal() {
                <div>
 
                   <p>Descrição</p>
+                
                   <TxtArea 
-                  value = 'A Salada César é uma opção refrescante para o verão.'
+                  onChange = {e => setDescription(e.target.value)}
+                  value = {description}
+
                   />
                 </div>
 
+
+            </Form>
               <div className = 'saveBtn'>
 
                  
-              <RedButton  className ='excludeBtn' title = 'Excluir prato'></RedButton> 
-              <RedButton  title = 'Salvar alterações'></RedButton> 
-              </div>
+              <RedButton  onClick={handleDeleteMeal} className='excludeBtn' title='Excluir prato' ></RedButton>
 
-            </Form>
+              <RedButton  onClick={handleEditMeal} title='Salvar alterações'></RedButton>
+
+
+              </div>
         </div>
  
 
 
        </div>
 
-
+    }
       <Footer/>
     </Container>
 

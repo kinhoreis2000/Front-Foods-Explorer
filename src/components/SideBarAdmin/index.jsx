@@ -5,7 +5,10 @@ import {TxtLink} from '../TxtLink'
 import close from '../../assets/close.svg'
 import {FiSearch} from 'react-icons/fi'
 import { Link} from 'react-router-dom'
-export function SideBarAdmin({active}) {
+import {useAuth} from '../../hooks/auth';
+
+export function SideBarAdmin({active, setSearch}) {
+  const {signOut} = useAuth()
 
   const closeSideBar = () => {
     active(false)
@@ -26,12 +29,12 @@ export function SideBarAdmin({active}) {
             </div>
 
             <div className = 'searchBarInput'>
-              <Input placeholder = 'Busque por pratos ou ingredientes' icon = {FiSearch}></Input>
+              <Input onChange = {(e)=> setSearch(e.target.value)} placeholder = 'Busque por pratos ou ingredientes' icon = {FiSearch}></Input>
            </div>
 
            <div className ='sideBarOptions'>
-            <Link to = 'newmeal'>Novo prato</Link>
-            <Link to = ''>Sair</Link>
+            <Link to = '/newmeal'>Novo prato</Link>
+            <Link onClick = {signOut} to = '/'>Sair</Link>
             </div> 
          </div>
          <Footer/>

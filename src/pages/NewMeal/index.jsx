@@ -13,7 +13,8 @@
 
 
   export function NewMeal() {
-    const options = ["Prato Principal", "Sobremesas", "Bebidas"];
+    const options = ["Refeições", "Sobremesas", "Bebidas"];
+    const [search, setSearch] = useState('');
     
     const [title, setTitle] = useState('')
     const [image, setImage] = useState('')
@@ -26,6 +27,8 @@
 
 
     const navigate = useNavigate()
+
+  
 
     function handleRemoveIngredient(deleted){
       setIngredients(prevState=> prevState.filter(ingredient => ingredient !== deleted))
@@ -53,7 +56,7 @@
         price,
         ingredients
       }
-
+      console.log(mealPrev.price)
 
 
       const meal = JSON.stringify(mealPrev)
@@ -89,7 +92,7 @@
     return(
 
       <Container>
-      <HeaderAdmin/>
+      <HeaderAdmin setSearch = {setSearch}  />
         <div className = 'Form'>   
           <Link to = '/'>
             <FiArrowLeft/> Voltar 

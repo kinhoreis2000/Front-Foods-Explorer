@@ -1,11 +1,11 @@
 import {Container} from './styles.js'
 
 
-export function RedButton({title,icon : Icon,alt, ...rest}) {
+export function RedButton({title,onClick,icon : Icon,alt, ...rest}) {
 
 
   return(
-    <Container  title ={title}>
+    <Container  onClick = {onClick} title ={title}>
       {
         Icon ?
         <img src = {Icon} alt ={alt}/>
