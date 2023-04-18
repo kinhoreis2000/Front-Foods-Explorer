@@ -5,7 +5,10 @@ import {TxtLink} from '../TxtLink'
 import close from '../../assets/close.svg'
 import {FiSearch} from 'react-icons/fi'
 import { Link} from 'react-router-dom'
+import {useAuth} from '../../hooks/auth';
+
 export function SideBar({active}) {
+  const {signOut} = useAuth()
 
   const closeSideBar = () => {
     active(false)
@@ -30,7 +33,7 @@ export function SideBar({active}) {
            </div>
 
            <div className ='sideBarOptions'>
-            <Link to = ''>Sair</Link>
+            <Link onClick = {signOut} to = '/'>Sair</Link>
             </div> 
          </div>
          <Footer/>

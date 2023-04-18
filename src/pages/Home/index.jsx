@@ -22,14 +22,13 @@ export function Home() {
   const [sobremesas, setSobremesas] = useState([])
   const [bebidas, setBebidas] = useState([])
   const {user} = useAuth()
-  console.log(search)
   const navigate = useNavigate()
   
-  
-
+ 
+  if(user.isadmin) {
 
     useEffect(() => {
-      async function fetchNotes() {
+      async function fetchMeals() {
         const responseRefeicoes = await api.get(`/meals?category=Refeições&search=${search}`)
         const responseSobremesas = await api.get(`/meals?category=Sobremesas&search=${search}`) 
         const responseBebidas = await api.get(`/meals?category=Bebidas&search=${search}`)
@@ -39,11 +38,10 @@ export function Home() {
   
 
       }
-      fetchNotes()
+      fetchMeals()
 
     }, [search]);
 
-    if(user.isadmin) {
   
       return(
     
@@ -175,13 +173,27 @@ export function Home() {
 
 
     } else {
-  
+      useEffect(() => {
+        async function fetchMeals() {
+          const responseRefeicoes = await api.get(`/mealsUser?category=Refeições&search=${search}`)
+          const responseSobremesas = await api.get(`/mealsUser?category=Sobremesas&search=${search}`) 
+          const responseBebidas = await api.get(`/mealsUser?category=Bebidas&search=${search}`)
+          setSobremesas(responseSobremesas.data)
+          setBebidas(responseBebidas.data)
+          setRefeicoes(responseRefeicoes.data)
+    
+    
+        }
+        fetchMeals()
+    
+      }, [search]);
+    
       return(
     
         <Container>
     
        
-              <Header
+              <Header setSearch = {setSearch} 
               />
      
     
@@ -220,7 +232,7 @@ export function Home() {
                           <FoodCard
                           
                             meal={meal}
-                            onClick={() => handleDetails(meal.id)}
+                           
                           />
                         </SwiperSlide>
                       ))
@@ -235,11 +247,63 @@ export function Home() {
                 </div>
                 <div className = 'PratosPrincipais'>
                   <h3 >Sobremesas</h3>
-                 
+                  <Swiper
+                     modules={[Navigation, Pagination, Scrollbar, A11y]}
+                     spaceBetween={100}
+                     slidesPerView='auto'
+                     style={{ margin: "0 5vw" ,     paddingRight: '28vw' }}
+                     className = 'swiper'
+                     navigation
+                     pagination={{ clickable: true }}
+                     scrollbar={{ draggable: true }}
+                    >
+    
+                    {
+                      sobremesas.map(meal => (  
+                        <SwiperSlide key={String(meal.id)}  >
+                          <FoodCard
+                          
+                            meal={meal}
+                            onClick={() => handleDetails(meal.id)}
+                          />
+                        </SwiperSlide>
+                      ))
+                      
+                    }
+    
+     
+    
+                  </Swiper> 
                 </div>
                 <div className = 'Bebidas'>
                   <h3>Bebidas</h3>
-                
+                  <Swiper
+                     modules={[Navigation, Pagination, Scrollbar, A11y]}
+                     spaceBetween={100}
+                     slidesPerView='auto'
+                     style={{ margin: "0 5vw" ,     paddingRight: '28vw' }}
+                     className = 'swiper'
+                     navigation
+                     pagination={{ clickable: true }}
+                     scrollbar={{ draggable: true }}
+                    >
+    
+                    {
+                      bebidas.map(meal => (  
+                        <SwiperSlide key={String(meal.id)}  >
+                          <FoodCard
+                          
+                            meal={meal}
+                            onClick={() => handleDetails(meal.id)}
+                          />
+                        </SwiperSlide>
+                      ))
+                      
+                    }
+    
+     
+    
+                  </Swiper> 
                 </div>
               <Footer/>
     

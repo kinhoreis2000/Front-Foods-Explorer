@@ -8,8 +8,9 @@ import {SideBar} from '../SideBar'
 import {Input} from '../Input'
 import {RedButton} from '../RedButton'
 import {FiSearch, FiLogOut} from 'react-icons/fi'
+import {useAuth} from '../../hooks/auth'
 
-export function Header() {
+export function Header({setSearch}) {
   const {signOut, user} = useAuth()
 
   const [sidebar, setSideBar] = useState(false)
@@ -30,7 +31,7 @@ export function Header() {
           className ='LogoForSideBar'
           onClick = {showSideBar}/>
       
-                {sidebar && <SideBar active = {setSideBar}/>}
+                {sidebar && <SideBar setSearch = {setSearch} active = {setSideBar}/>}
           </div>
      
           <div className = 'logoFoodsExplorer'>
