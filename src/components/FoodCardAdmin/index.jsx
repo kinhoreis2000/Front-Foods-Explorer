@@ -32,7 +32,7 @@ export function FoodCardAdmin({meal}) {
           </div>
           <a  onClick = {handleDetails} className = 'mealName'>{meal.title} <FiArrowRight  style={{ marginLeft: "2px" }} /></a>
           <label className  = 'mealDesc desapear'>{meal.description}</label>
-          <p className = 'mealPrice' >{`${meal.price}`}</p>
+          <p className = 'mealPrice' >{`R$ ${meal.price}`}</p>
         </div>
       </Container>
     )

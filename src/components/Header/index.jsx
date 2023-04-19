@@ -41,7 +41,11 @@ export function Header({setSearch}) {
             <h1>food explorer</h1>
           </div>
           <div className = 'searchBar desapear'>
-              <Input className = 'searchInput'placeholder = 'Busque por pratos ou ingredientes' icon = {FiSearch}></Input>
+              <Input 
+              className = 'searchInput'
+              placeholder = 'Busque por pratos ou ingredientes' 
+              icon = {FiSearch}
+              onChange = {(e)=> setSearch(e.target.value)}></Input>
            </div>
           
           <div className = 'ordersBTN'>

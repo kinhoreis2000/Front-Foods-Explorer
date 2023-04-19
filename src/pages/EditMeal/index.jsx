@@ -23,7 +23,7 @@ export function EditMeal() {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [search, setSearch] = useState('')
-  const [price, setPrice] = useState('')
+  var [price, setPrice] = useState('')
   const [ingredients, setIngredients] = useState('')
   const [newIngredient, setNewIngredient] = useState('')
   const [ingredientsData, setIngredientsData] = useState('')
@@ -68,13 +68,9 @@ export function EditMeal() {
 
   async function handleEditMeal (e){
     e.preventDefault()
-    console.log({
-      title,
-      description,
-      ingredients,
-      price,
-      category: selectedValue
-    })
+    
+    price = price.toString().replace("R$ ", "").replace(",", ".");  
+
     const meal = {
       title,
       description,
@@ -185,15 +181,14 @@ export function EditMeal() {
                 <div>
 
                 <p>Categoria</p>
-
                 <InputCategory 
-                placeholder = 'Refeição'
-                selectedValue={selectedValue}
-                difColor
-
-                onSelectionChange={handleSelectionChange}
-                options={options}
+                  placeholder='Refeição'
+                  selectedValue={selectedValue}
+                  onSelectionChange={handleSelectionChange}
+                  options={options}
+                  difColor
                 />
+
                 </div>
                 
              </div>
@@ -234,7 +229,7 @@ export function EditMeal() {
                     difColor
                     mask="R$ 00,00"
                     type ='text'
-                    value = {price}
+                    value = {String(price)}
                     onChange = {e => setPrice(e.target.value)}
                   />
               </div>

@@ -22,7 +22,7 @@
     const [category, setCategory] = useState(options[0]);
     const [description, setDescription] = useState('')
     const [ingredients, setIngredients] = useState([])
-    const [price, setPrice] = useState('')
+    var [price, setPrice] = useState('')
     const [newIngredient, setNewIngredient] = useState('')
 
 
@@ -49,6 +49,10 @@
     }
     async function handleSaveMealSubmit(e){
       e.preventDefault()
+
+      price = price.replace("R$ ", "").replace(",", ".");  
+      console.log(price)
+
       const mealPrev = {
         title,
         description,
@@ -56,7 +60,8 @@
         price,
         ingredients
       }
-      console.log(mealPrev.price)
+     
+
 
 
       const meal = JSON.stringify(mealPrev)

@@ -99,13 +99,15 @@ export function MealDetails() {
     return(
 
 <Container>
-     <Header/>
+     <Header setSearch = {setSearch}/>
+
+     { meal &&
         <div className='MealDetails'>
 
           <Link to ='/'><FiArrowLeft/>Voltar</Link>
           <div className = 'DetailsData'>
             <div>
-              <img className = 'mealPhoto'src = {meal.photo}/>
+              <img className = 'mealPhoto'src = {mealUrl}/>
             </div>
             <div className ='rightSide'>
             <h1>{meal.title}</h1>
@@ -113,10 +115,11 @@ export function MealDetails() {
             <div className = 'MealIngredientsSection'>
               <div className = 'MealIngredients'>
                 
-                { meal.ingredients.map(ingredient => (
+              { 
+                 meal.ingredients.map(ingredient => (
 
                   <li key = {String(ingredient.id)}> 
-                    <p> {ingredient}</p>
+                    <p> {ingredient.name}</p>
 
                   </li>
 
@@ -147,7 +150,7 @@ export function MealDetails() {
         </div>
 
 
-
+      }
       <Footer/>
     </Container>
 

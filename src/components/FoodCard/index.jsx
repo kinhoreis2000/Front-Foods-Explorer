@@ -6,12 +6,27 @@ import heart from '../../assets/heart.svg'
 import minus from '../../assets/minus.svg'
 import plus from '../../assets/plus.svg'
 import {api} from '../../services/api'
-
+import {useNavigate} from 'react-router-dom'
+import {useState} from 'react'
 export function FoodCard({meal}) {
-
+  const navigate = useNavigate()
+  const [quantity, setQuantity] = useState(1)
   const mealUrl = `${api.defaults.baseURL}files/${meal.image}`
 
+  function handleIncrements(){
+    setQuantity(quantity + 1);
+  }
 
+  function handleDecrement (){
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
+  }
+
+  async function handleDetails() {
+    navigate(`/mealdetails/${meal.id}`)
+
+  }
 
     return(
       <Container >
@@ -23,13 +38,13 @@ export function FoodCard({meal}) {
           <div className = 'mealphoto'>
             <img src = {mealUrl}></img>
           </div>
-          <Link className = 'mealName'>{meal.title}</Link>
+          <a onClick = {handleDetails} className = 'mealName'>{meal.title}</a>
           <label className  = 'mealDesc desapear'>{meal.description}</label>
           <p className = 'mealPrice' >{`R$ ${meal.price}`}</p>
           <div className = 'qtdOfOrder'>
-            <img src = {minus}/>
-            <label> 01 </label> 
-            <img src = {plus}/> 
+            <img src = {minus} onClick = {handleDecrement}/>
+            <label> {quantity < 10 ? `0${quantity}` : quantity} </label> 
+            <img src = {plus} onClick = {handleIncrements}/> 
             <RedButton title = 'incluir'></RedButton>
           </div>
         </div>
