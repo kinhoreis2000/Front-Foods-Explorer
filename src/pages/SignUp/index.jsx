@@ -1,7 +1,7 @@
 import {Container, Form} from './styles'
 import {Input} from '../../components/Input'
 import {RedButton} from '../../components/RedButton'
-import HexagonalLogo from '../../assets/hexagonalLogo.svg'
+import hexagonalLogo from '../../assets/hexagonalLogo.svg'
 import {useState} from 'react'
 import { Link } from 'react-router-dom';
 import {api} from '../../services/api'
@@ -33,7 +33,7 @@ export function SignUp() {
     <Container>
       <main>
         <header className ='logoSide'>
-          <img src={HexagonalLogo} alt="logo retangular do explorer" /> 
+          <img src={hexagonalLogo} alt="logo retangular do explorer" /> 
           <h1>food explorer</h1>
         </header> 
           <div className ='UserInteraction'>
