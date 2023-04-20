@@ -23,7 +23,7 @@ export function Home() {
   const [bebidas, setBebidas] = useState([])
   const {user} = useAuth()
   const navigate = useNavigate()
-  
+ 
  
   if(user.isadmin) {
 

@@ -7,7 +7,7 @@ import {FiSearch} from 'react-icons/fi'
 import { Link} from 'react-router-dom'
 import {useAuth} from '../../hooks/auth';
 
-export function SideBar({active}) {
+export function SideBar({active, setSearch}) {
   const {signOut} = useAuth()
 
   const closeSideBar = () => {
@@ -29,7 +29,11 @@ export function SideBar({active}) {
             </div>
 
             <div className = 'searchBarInput'>
-              <Input placeholder = 'Busque por pratos ou ingredientes' icon = {FiSearch}></Input>
+              <Input 
+              placeholder = 'Busque por pratos ou ingredientes' 
+              icon = {FiSearch}
+              onChange = {(e)=> setSearch(e.target.value)} 
+              ></Input>
            </div>
 
            <div className ='sideBarOptions'>

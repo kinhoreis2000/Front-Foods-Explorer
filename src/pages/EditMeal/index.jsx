@@ -26,7 +26,7 @@ export function EditMeal() {
   var [price, setPrice] = useState('')
   const [ingredients, setIngredients] = useState('')
   const [newIngredient, setNewIngredient] = useState('')
-  const [ingredientsData, setIngredientsData] = useState('')
+  const [ingredientsData, setIngredientsData] = useState(null)
 
   const [imageFile, setImageFile] = useState('')
 
@@ -70,44 +70,53 @@ export function EditMeal() {
     e.preventDefault()
     
     price = price.toString().replace("R$ ", "").replace(",", ".");  
+    if(!title || !description|| !selectedValue || !price || !ingredients){
+      alert('Todos os campos são obrigatórios')
+    } else{
 
-    const meal = {
-      title,
-      description,
-      ingredients,
-      price,
-      category: selectedValue
-    }
-
-    if(imageFile) {
-      try{
-
-        const fileUploadForm = new FormData()
-
-        fileUploadForm.append('image',imageFile)
-
-        await api.patch(`/meals/image/${params.id}`, fileUploadForm, {  
-          headers: {
-          'Content-Type': 'multipart/form-data'
-        }})
-
-
-        await api.put(`/meals/${params.id}`, meal)
-        alert('Sua refeição foi atualizada com sucesso!')
-        navigate('/')
-      } catch(error){
-        console.error(error)
+      const meal = {
+        title,
+        description,
+        ingredients,
+        price,
+        category: selectedValue
+      }
+  
+      if(imageFile) {
+        try{
+  
+          const fileUploadForm = new FormData()
+  
+          fileUploadForm.append('image',imageFile)
+  
+          await api.patch(`/meals/image/${params.id}`, fileUploadForm, {  
+            headers: {
+            'Content-Type': 'multipart/form-data'
+          }})
+  
+  
+          await api.put(`/meals/${params.id}`, meal)
+          alert('Sua refeição foi atualizada com sucesso!')
+          navigate('/')
+      
+        } catch(error){
+          console.error(error)
+        }
+  
+      } 
+      else {
+        try{
+          await api.put(`/meals/${params.id}`, meal)
+          alert('Sua refeição foi atualizada com sucesso!')
+        } catch(error){
+          console.error(error)
+        }
       }
 
-    } 
-    else {
-      try{
-        await api.put(`/meals/${params.id}`, meal)
-        alert('Sua refeição foi atualizada com sucesso!')
-      } catch(error){
-        console.error(error)
-      }
+
+
     }
+    
   }
 
 
@@ -126,16 +135,17 @@ export function EditMeal() {
       setPrice(meal.price)
       setDescription(meal.description)
       setIngredientsData(meal.ingredients)
-      setIngredients(ingredientsData.map((ingredient)=> ingredient.name))
-
+      if (ingredientsData) {
+        setIngredients(ingredientsData.map((ingredient) => ingredient.name))
+      }
       
     }
     fetchMealDetails()
-  } , [meal])
+  } , [meal, ingredientsData])
 
-  useEffect(()=>{
-    if (ingredientsData) {
-      setIngredients(ingredientsData.map((ingredient)=> ingredient.name))
+  useEffect(() => {
+    if (Array.isArray(ingredientsData)) {
+      setIngredients(ingredientsData.map((ingredient) => ingredient.name))
     }
   }, [ingredientsData])
 
@@ -174,7 +184,7 @@ export function EditMeal() {
               
                 <Input 
                 difColor
-                value = {title}
+                value={meal.title ? meal.title : ''}
                 onChange = {e => setTitle(e.target.value)}
                 />
                 </div>

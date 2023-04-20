@@ -50,43 +50,53 @@
     async function handleSaveMealSubmit(e){
       e.preventDefault()
 
-      price = price.replace("R$ ", "").replace(",", ".");  
-      console.log(price)
 
-      const mealPrev = {
-        title,
-        description,
-        category,
-        price,
-        ingredients
-      }
-     
+      if(!title || !description|| !category || !price || !ingredients|| !imageFile){
+
+        alert('Todos os campos são obrigatórios!')
 
 
+      } else {
 
-      const meal = JSON.stringify(mealPrev)
 
-      try {
+        price = price.replace("R$ ", "").replace(",", ".");  
+  
+        const mealPrev = {
+          title,
+          description,
+          category,
+          price,
+          ingredients
+        }
        
-        const fileUploadForm = new FormData()
+  
+  
+  
+        const meal = JSON.stringify(mealPrev)
+  
+        try {
+         
+          const fileUploadForm = new FormData()
+  
+          fileUploadForm.append('image',imageFile)
+          fileUploadForm.append('meal', meal)
+          
+          const response = await api.post('/meals', fileUploadForm, {  
+            headers: {
+            'Content-Type': 'multipart/form-data'
+          }})
+  
+          alert('A comida foi cadastrada com sucesso!');
+          
+          navigate('/');
+  
+        } catch (error) {
+  
+          console.log(error);
+          alert('Ocorreu um erro ao cadastrar a comida!');
+  
+        }
 
-        fileUploadForm.append('image',imageFile)
-        fileUploadForm.append('meal', meal)
-        
-        const response = await api.post('/meals', fileUploadForm, {  
-          headers: {
-          'Content-Type': 'multipart/form-data'
-        }})
-        console.log(response)
-
-        alert('A tentativa de cadastrar a comida foi feita com sucesso!');
-        
-        navigate('/');
-
-      } catch (error) {
-
-        console.log(error);
-        alert('Ocorreu um erro ao cadastrar a comida!');
 
       }
 

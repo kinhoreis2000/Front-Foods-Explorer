@@ -18,9 +18,7 @@ function AuthProvider({children}){
       setData({user, token})    
 
     }catch(error){
-
-      alert('não foi possivel realizar a requisição')
-      console.error(error)
+      alert(error.response.data.message)
     }
 
   }

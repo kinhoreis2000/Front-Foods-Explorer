@@ -18,6 +18,7 @@ export function MealDetails() {
   const {user} = useAuth()
   const params = useParams()
   const navigate = useNavigate()
+  const [quantity, setQuantity] = useState(1)
 
   const [meal, setMeal] = useState();
   const [search, setSearch] = useState('');
@@ -30,7 +31,15 @@ export function MealDetails() {
 
   }
 
-  
+  function handleIncrements(){
+    setQuantity(quantity + 1);
+  }
+
+  function handleDecrement (){
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
+  }
 
   useEffect(()=> {
     async function fetchMeal(){
@@ -131,9 +140,9 @@ export function MealDetails() {
           
           
           <div className = 'qtdOfOrder'>
-            <img src = {minus}/>
-            <label> 01 </label> 
-            <img src = {plus}/> 
+            <img src = {minus} onClick = {handleDecrement}/>
+            <label> {quantity < 10 ? `0${quantity}` : quantity}</label> 
+            <img src = {plus} onClick = {handleIncrements}/> 
           </div>
           
               

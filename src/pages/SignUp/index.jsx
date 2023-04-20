@@ -5,22 +5,28 @@ import HexagonalLogo from '../../assets/HexagonalLogo.svg'
 import {useState} from 'react'
 import { Link } from 'react-router-dom';
 import {api} from '../../services/api'
-
+import {useNavigate} from 'react-router-dom'
 export function SignUp() {
   const [fullName, setFullName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   
-
+  const navigate = useNavigate()
   async function handleFormSubmit(event) {
     event.preventDefault();
         if(!fullName || !email || !password){
       alert('preencha todos os campos')
       return
     }
-     await api.post('/users',{name :fullName, email, password})
 
-     alert('usuário cadastrado com sucesso')
+    try{
+      await api.post('/users',{name :fullName, email, password})
+      alert('usuário cadastrado com sucesso')
+      navigate('/')
+    } catch(error){
+      alert(error.response.data.message)
+    }
+ 
 
   }
   return(
@@ -37,20 +43,25 @@ export function SignUp() {
               <p className='inputField'>Nome completo</p>
               <Input 
               onChange = {(e)=>{setFullName(e.target.value)}}
-              placeholder = 'Exemplo: Maria da Silva'>
+              placeholder = 'Exemplo: Maria da Silva'
+              required>
               </Input>
 
               <p className='inputField'>Email</p>
               <Input 
               onChange = {(e)=>{setEmail(e.target.value)}}
-              placeholder = 'Example@example.com.br'>
+              placeholder = 'Example@example.com.br'
+              type = 'email'
+              required>
               </Input>
 
               <p className='inputField'>Senha</p>
               <Input 
               onChange = {(e)=>{setPassword(e.target.value)}}
               placeholder = 'No mínimo 6 caracteres'
-              type= 'password'>
+              type= 'password'
+              minLength="6"
+               required>
               </Input>
              
               <RedButton title = 'Criar conta'></RedButton> 

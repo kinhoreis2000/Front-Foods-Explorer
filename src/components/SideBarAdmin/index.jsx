@@ -29,7 +29,9 @@ export function SideBarAdmin({active, setSearch}) {
             </div>
 
             <div className = 'searchBarInput'>
-              <Input onChange = {(e)=> setSearch(e.target.value)} placeholder = 'Busque por pratos ou ingredientes' icon = {FiSearch}></Input>
+              <Input
+               onChange = {(e)=> setSearch(e.target.value)} 
+               placeholder = 'Busque por pratos ou ingredientes' icon = {FiSearch}></Input>
            </div>
 
            <div className ='sideBarOptions'>

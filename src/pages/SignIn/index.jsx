@@ -22,9 +22,9 @@ export function SignIn() {
     }
     signIn({email, password})
 
-     alert('tentativa de login realizada')
-
   }
+
+
   return(
     <Container>
       <main>
