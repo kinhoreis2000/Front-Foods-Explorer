@@ -1,7 +1,7 @@
 import {Container, Form} from './styles'
 import {Input} from '../../components/Input'
 import {RedButton} from '../../components/RedButton'
-import HexagonalLogo from '../../assets/HexagonalLogo.svg'
+import HexagonalLogo from '../../assets/hexagonalLogo.svg'
 import {useState} from 'react'
 import { Link } from 'react-router-dom';
 import {api} from '../../services/api'
