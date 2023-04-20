@@ -5,7 +5,7 @@ import {RedButton} from '../../components/RedButton'
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { FiArrowLeft} from 'react-icons/fi'
-import orderLogo from '../../assets/orderLogo.svg'
+import orderlogo from '../../assets/orderlogo.svg'
 import {useAuth} from '../../hooks/auth'
 import {HeaderAdmin} from '../../components/HeaderAdmin'
 import {useParams} from 'react-router-dom'
