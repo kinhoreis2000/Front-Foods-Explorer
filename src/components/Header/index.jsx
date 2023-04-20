@@ -3,7 +3,7 @@ import {Container} from './styles'
 import {useState} from 'react'
 import optionsPhonesvg from '../../assets/optionsPhone.svg'
 import hexagonalLogo from '../../assets/hexagonalLogo.svg'
-import orderLogo from '../../assets/orderLogo.svg'
+import orderlogo from '../../assets/orderlogo.svg'
 import {SideBar} from '../SideBar'
 import {Input} from '../Input'
 import {RedButton} from '../RedButton'
@@ -52,12 +52,12 @@ export function Header({setSearch}) {
             <p className = 'desktopDesapear'>0</p>
             
             <img 
-                src = {orderLogo}
+                src = {orderlogo}
                 alt='order Logo'
-                className = 'imageOrderLogo'/>
+                className = 'imageorderlogo'/>
           </div>
           <div className = ' desapear'>
-              <RedButton title = 'pedidos (0)' icon = {orderLogo}></RedButton>
+              <RedButton title = 'pedidos (0)' icon = {orderlogo}></RedButton>
            </div>
            <div className = 'logOutLogo desapear'>
            <a onClick = {signOut}> <FiLogOut></FiLogOut></a>

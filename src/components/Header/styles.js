@@ -161,7 +161,7 @@ export const Container = styled.header`
     }
 
   
-   .imageOrderLogo{
+   .imageorderlogo{
       display:none;
     }
 

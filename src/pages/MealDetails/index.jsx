@@ -149,7 +149,7 @@ export function MealDetails() {
               
               <div className = 'orderBtn'>
               
-              <RedButton alt = 'ClickToOrder'icon = {orderLogo} title = {`pedir - R$ ${meal.price}`} />
+              <RedButton alt = 'ClickToOrder'icon = {orderlogo} title = {`pedir - R$ ${meal.price}`} />
                 
               
               </div>
