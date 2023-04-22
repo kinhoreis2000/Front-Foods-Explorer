@@ -10,17 +10,21 @@ import {useAuth} from '../../hooks/auth'
 export function SignIn() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const {signIn} = useAuth()
 
   
   async function handleFormSubmit(event) {
     event.preventDefault();
+
+    setIsSubmitting(true)
         if(!email || !password){
       alert('preencha todos os campos')
       return
     }
     signIn({email, password})
+
+
 
   }
 
@@ -44,7 +48,7 @@ export function SignIn() {
               onChange = {(e)=>{setPassword(e.target.value)}}
               placeholder = 'No mínimo 6 caracteres'
               type = 'password'></Input>
-              <RedButton title = 'Entrar'></RedButton> 
+              <RedButton title = {isSubmitting? 'Carregando...':'Entrar'}></RedButton> 
 
             </Form>
             <footer className = "info"> <Link to = '/signup'>Crie sua conta</Link> </footer>

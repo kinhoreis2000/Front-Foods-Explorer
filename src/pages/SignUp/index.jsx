@@ -10,10 +10,13 @@ export function SignUp() {
   const [fullName, setFullName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false);
   
   const navigate = useNavigate()
   async function handleFormSubmit(event) {
     event.preventDefault();
+    setIsSubmitting(true)
+
         if(!fullName || !email || !password){
       alert('preencha todos os campos')
       return
@@ -22,6 +25,8 @@ export function SignUp() {
     try{
       await api.post('/users',{name :fullName, email, password})
       alert('usuário cadastrado com sucesso')
+      setIsSubmitting(false)
+
       navigate('/')
     } catch(error){
       alert(error.response.data.message)
@@ -64,7 +69,7 @@ export function SignUp() {
                required>
               </Input>
              
-              <RedButton title = 'Criar conta'></RedButton> 
+              <RedButton title = {isSubmitting? 'Carregando...':'Criar conta'}></RedButton> 
 
             </Form>
             <footer className = "info"> <Link to = '/'>Já tenho uma conta</Link> </footer>

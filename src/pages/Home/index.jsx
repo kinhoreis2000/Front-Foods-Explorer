@@ -35,7 +35,6 @@ export function Home() {
         setSobremesas(responseSobremesas.data)
         setBebidas(responseBebidas.data)
         setRefeicoes(responseRefeicoes.data)
-  
 
       }
       fetchMeals()
