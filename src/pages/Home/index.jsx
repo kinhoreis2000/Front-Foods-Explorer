@@ -24,22 +24,24 @@ export function Home() {
   const {user} = useAuth()
   const navigate = useNavigate()
  
- 
+  useEffect(() => {
+    async function fetchMeals() {
+      const responseRefeicoes = await api.get(`/meals?category=Refeições&search=${search}`)
+      const responseSobremesas = await api.get(`/meals?category=Sobremesas&search=${search}`) 
+      const responseBebidas = await api.get(`/meals?category=Bebidas&search=${search}`)
+      setSobremesas(responseSobremesas.data)
+      setBebidas(responseBebidas.data)
+      setRefeicoes(responseRefeicoes.data)
+
+    }
+    fetchMeals()
+
+  }, [search]);
+
+  
   if(user.isadmin) {
 
-    useEffect(() => {
-      async function fetchMeals() {
-        const responseRefeicoes = await api.get(`/meals?category=Refeições&search=${search}`)
-        const responseSobremesas = await api.get(`/meals?category=Sobremesas&search=${search}`) 
-        const responseBebidas = await api.get(`/meals?category=Bebidas&search=${search}`)
-        setSobremesas(responseSobremesas.data)
-        setBebidas(responseBebidas.data)
-        setRefeicoes(responseRefeicoes.data)
 
-      }
-      fetchMeals()
-
-    }, [search]);
 
   
       return(
@@ -172,20 +174,8 @@ export function Home() {
 
 
     } else {
-      useEffect(() => {
-        async function fetchMeals() {
-          const responseRefeicoes = await api.get(`/mealsUser?category=Refeições&search=${search}`)
-          const responseSobremesas = await api.get(`/mealsUser?category=Sobremesas&search=${search}`) 
-          const responseBebidas = await api.get(`/mealsUser?category=Bebidas&search=${search}`)
-          setSobremesas(responseSobremesas.data)
-          setBebidas(responseBebidas.data)
-          setRefeicoes(responseRefeicoes.data)
-    
-    
-        }
-        fetchMeals()
-    
-      }, [search]);
+      
+   
     
       return(
     

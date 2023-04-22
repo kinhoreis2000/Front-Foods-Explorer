@@ -15,6 +15,7 @@
   export function NewMeal() {
     const options = ["Refeições", "Sobremesas", "Bebidas"];
     const [search, setSearch] = useState('');
+    const [isSubmitting, setIsSubmitting] = useState(false);
     
     const [title, setTitle] = useState('')
     const [image, setImage] = useState('')
@@ -50,7 +51,7 @@
     async function handleSaveMealSubmit(e){
       e.preventDefault()
 
-
+      setIsSubmitting(true)
       if(!title || !description|| !category || !price || !ingredients|| !imageFile){
 
         alert('Todos os campos são obrigatórios!')
@@ -87,6 +88,7 @@
           }})
   
           alert('A comida foi cadastrada com sucesso!');
+          setIsSubmitting(false)
           
           navigate('/');
   
@@ -94,6 +96,7 @@
   
           console.log(error);
           alert('Ocorreu um erro ao cadastrar a comida!');
+          setIsSubmitting(false)
   
         }
 
@@ -216,7 +219,7 @@
 
                 <div className = 'saveBtn'>
 
-                    <RedButton  title = 'Novo prato'></RedButton> 
+                    <RedButton  title = {isSubmitting? 'Carregando...': 'Novo prato' }></RedButton> 
                 </div>
 
               </Form>

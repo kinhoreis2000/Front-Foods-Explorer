@@ -16,13 +16,23 @@ export function SignIn() {
   
   async function handleFormSubmit(event) {
     event.preventDefault();
-
+    
     setIsSubmitting(true)
-        if(!email || !password){
-      alert('preencha todos os campos')
-      return
+
+    if(!email || !password){
+    alert('preencha todos os campos')
+    return
     }
-    signIn({email, password})
+    try{
+      await signIn({email, password})
+      setIsSubmitting(false)
+
+    }catch(error){
+      setIsSubmitting(false)
+
+      alert(error.response.data.message)
+
+    }
 
 
 

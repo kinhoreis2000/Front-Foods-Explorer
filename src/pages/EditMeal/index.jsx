@@ -20,13 +20,15 @@ export function EditMeal() {
   const [selectedValue, setSelectedValue] = useState(options[0]);
   const params = useParams()
   const [meal, setMeal] = useState({})
-  const [title, setTitle] = useState('')
+  var [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [search, setSearch] = useState('')
   var [price, setPrice] = useState('')
   const [ingredients, setIngredients] = useState('')
   const [newIngredient, setNewIngredient] = useState('')
   const [ingredientsData, setIngredientsData] = useState(null)
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isExcluding, setIsExcluding] = useState(false);
 
   const [imageFile, setImageFile] = useState('')
 
@@ -43,11 +45,13 @@ export function EditMeal() {
   };
 
   async function handleDeleteMeal(){
+    setIsExcluding(true)
     const confirm = window.confirm('Deseja realmente deletar essa refeição?')
 
     if(confirm) {
       await api.delete(`/meals/${params.id}`)
       alert('Foi deletado com sucesso')
+
       navigate('/')
     }else {
 
@@ -65,15 +69,14 @@ export function EditMeal() {
     setIngredients(prevState => [...prevState, newIngredient])
   }
 
-
   async function handleEditMeal (e){
     e.preventDefault()
-    
+    setIsSubmitting(true)
     price = price.toString().replace("R$ ", "").replace(",", ".");  
     if(!title || !description|| !selectedValue || !price || !ingredients){
       alert('Todos os campos são obrigatórios')
     } else{
-
+  
       const meal = {
         title,
         description,
@@ -93,14 +96,13 @@ export function EditMeal() {
             headers: {
             'Content-Type': 'multipart/form-data'
           }})
-  
-  
+    
           await api.put(`/meals/${params.id}`, meal)
           alert('Sua refeição foi atualizada com sucesso!')
-          navigate('/')
-      
         } catch(error){
           console.error(error)
+        } finally {
+          setIsSubmitting(false)
         }
   
       } 
@@ -110,14 +112,13 @@ export function EditMeal() {
           alert('Sua refeição foi atualizada com sucesso!')
         } catch(error){
           console.error(error)
+        } finally {
+          setIsSubmitting(false)
         }
       }
-
-
-
     }
-    
   }
+  
 
 
   useEffect(()=>{
@@ -148,6 +149,7 @@ export function EditMeal() {
       setIngredients(ingredientsData.map((ingredient) => ingredient.name))
     }
   }, [ingredientsData])
+
 
   return(
 
@@ -184,7 +186,7 @@ export function EditMeal() {
               
                 <Input 
                 difColor
-                value={meal.title ? meal.title : ''}
+                value={title}
                 onChange = {e => setTitle(e.target.value)}
                 />
                 </div>
@@ -262,9 +264,9 @@ export function EditMeal() {
               <div className = 'saveBtn'>
 
                  
-              <RedButton  onClick={handleDeleteMeal} className='excludeBtn' title='Excluir prato' ></RedButton>
+              <RedButton  onClick={handleDeleteMeal} className='excludeBtn' title = {isExcluding? 'Excluindo...': 'Excluir prato' } ></RedButton>
 
-              <RedButton  onClick={handleEditMeal} title='Salvar alterações'></RedButton>
+              <RedButton  onClick={handleEditMeal} title = {isSubmitting? 'Carregando...': 'Salvar alterações' }></RedButton>
 
 
               </div>
