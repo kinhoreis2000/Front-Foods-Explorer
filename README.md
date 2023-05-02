@@ -1,4 +1,4 @@
-#  Food explorer - App
+#  Food explorer - FrontEnd
 
 Esta é uma aplicação de um estabelecimento fictício. Nela você pode, como administrador, fazer uma listagem das suas refeições, podendo criar pratos, editar, excluir e, com o login de usuário, listar/pesquisar pelos pratos existentes criados pelo administrador
 
@@ -44,7 +44,7 @@ Este é o projeto final do programa Explorer da Rocketseat, que consistiu em des
 
 ## Tecnologias
 
-- E por fim, para instalar as dependências necessárias, utilizou-se o gerenciador de pacotes **NPM**.
+- Para instalar as dependências necessárias, utilizou-se o gerenciador de pacotes **NPM**.
 - A biblioteca **ReactJS** foi escolhida para desenvolver as interfaces da aplicação;
 - A biblioteca **Axios** foi utilizada para realizar requisições na aplicação;
 - Para implementar toda a lógica da aplicação, foi utilizado o **JS**;
