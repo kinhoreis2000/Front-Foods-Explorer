@@ -78,6 +78,8 @@ export function EditMeal() {
     price = price.toString().replace("R$ ", "").replace(",", ".");  
     if(!title || !description|| !selectedValue || !price || !ingredients){
       alert('Todos os campos são obrigatórios')
+      setIsSubmitting(false)
+
     } else{
   
       const meal = {

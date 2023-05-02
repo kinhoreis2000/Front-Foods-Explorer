@@ -59,6 +59,7 @@
 
         alert('Todos os campos são obrigatórios!')
 
+        setIsSubmitting(false)
 
       } else {
 
