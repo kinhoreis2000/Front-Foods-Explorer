@@ -40,7 +40,9 @@ export function FoodCard({meal}) {
           </div>
           <a onClick = {handleDetails} className = 'mealName'>{meal.title}</a>
           <label className  = 'mealDesc desapear'>{meal.description}</label>
-          <p className = 'mealPrice' >{`R$ ${meal.price}`}</p>
+          <p className='mealPrice'>
+          {`R$ ${meal.price.toLocaleString('pt-br', {minimumFractionDigits: 2})}`}
+        </p>
           <div className = 'qtdOfOrder'>
             <img src = {minus} onClick = {handleDecrement}/>
             <label> {quantity < 10 ? `0${quantity}` : quantity} </label> 

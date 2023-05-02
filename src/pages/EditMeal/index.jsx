@@ -71,6 +71,9 @@ export function EditMeal() {
 
   async function handleEditMeal (e){
     e.preventDefault()
+    if(newIngredient){
+      return alert('Você deixou um ingrediente para adicionar, mas não clicou em adicionar. Clique para adicionar ou deixe o campo vazio')
+    }
     setIsSubmitting(true)
     price = price.toString().replace("R$ ", "").replace(",", ".");  
     if(!title || !description|| !selectedValue || !price || !ingredients){
@@ -98,18 +101,23 @@ export function EditMeal() {
           }})
     
           await api.put(`/meals/${params.id}`, meal)
+          navigate('/')
+
           alert('Sua refeição foi atualizada com sucesso!')
         } catch(error){
           console.error(error)
         } finally {
           setIsSubmitting(false)
+          navigate('/')
+
         }
   
       } 
       else {
         try{
-          await api.put(`/meals/${params.id}`, meal)
           alert('Sua refeição foi atualizada com sucesso!')
+
+          await api.put(`/meals/${params.id}`, meal)
         } catch(error){
           console.error(error)
         } finally {

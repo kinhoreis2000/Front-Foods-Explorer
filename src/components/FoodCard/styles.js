@@ -70,7 +70,11 @@ export const Container = styled.div`
       align-items: center;
 
       text-align: center;
+      img {
+    cursor:pointer;
 
+        padding: 0.4rem;
+      }
     }
     p {
       display: flex;

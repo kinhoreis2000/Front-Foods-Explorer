@@ -51,6 +51,9 @@
     async function handleSaveMealSubmit(e){
       e.preventDefault()
 
+      if(newIngredient){
+        return alert('Você deixou um ingrediente para adicionar, mas não clicou em adicionar. Clique para adicionar ou deixe o campo vazio')
+      }
       setIsSubmitting(true)
       if(!title || !description|| !category || !price || !ingredients|| !imageFile){
 
