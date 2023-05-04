@@ -66,7 +66,7 @@ export function MealDetails() {
           <Link to ='/'><FiArrowLeft/>Voltar</Link>
           <div className = 'DetailsData'>
             <div>
-              <img className = 'mealPhoto'src = {mealUrl}/>
+              <img alt = {`imagem da refeição ${meal.title}`} className = 'mealPhoto'src = {mealUrl}/>
             </div>
             <div className ='rightSide'>
             <h1>{meal.title}</h1>
@@ -116,7 +116,7 @@ export function MealDetails() {
           <Link to ='/'><FiArrowLeft/>Voltar</Link>
           <div className = 'DetailsData'>
             <div>
-              <img className = 'mealPhoto'src = {mealUrl}/>
+              <img alt = {`imagem da refeição ${meal.title}`} className = 'mealPhoto'src = {mealUrl}/>
             </div>
             <div className ='rightSide'>
             <h1>{meal.title}</h1>
@@ -140,9 +140,9 @@ export function MealDetails() {
           
           
           <div className = 'qtdOfOrder'>
-            <img src = {minus} onClick = {handleDecrement}/>
+            <img alt = 'sinal de menos' src = {minus} onClick = {handleDecrement}/>
             <label> {quantity < 10 ? `0${quantity}` : quantity}</label> 
-            <img src = {plus} onClick = {handleIncrements}/> 
+            <img alt = 'sinal de mais'  src = {plus} onClick = {handleIncrements}/> 
           </div>
           
               

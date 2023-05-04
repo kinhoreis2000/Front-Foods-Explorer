@@ -24,11 +24,14 @@ export function FoodCardAdmin({meal}) {
       <Container >
         <div className= 'card' >
           <div className = 'edit' >
-            <img onClick = {handleEdit}src = {edit} alt ='edit'></img>
+            <img onClick = {handleEdit}
+            src = {edit} 
+            alt ='logo edição'></img>
           </div>
 
           <div className = 'mealphoto'>
-            <img src = {mealUrl}></img>
+            <img src = {mealUrl}
+            alt = {`Foto da refeição ${meal.title}`}></img>
           </div>
           <a  onClick = {handleDetails} className = 'mealName'>{meal.title} <FiArrowRight  style={{ marginLeft: "2px" }} /></a>
           <label className  = 'mealDesc desapear'>{meal.description}</label>

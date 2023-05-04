@@ -12,7 +12,7 @@ export function Footer() {
         <footer>
           
           <div className ='footerLogoSide'>
-            <img src = {hexagonalLogoGrey}></img> 
+            <img src = {hexagonalLogoGrey} alt = 'Logo foods explorer'></img> 
             <p>food explorer</p>
           </div>
 

@@ -36,7 +36,7 @@ export function FoodCard({meal}) {
           </div>
 
           <div className = 'mealphoto'>
-            <img src = {mealUrl}></img>
+            <img src = {mealUrl} alt= {`Foto da refeição ${meal.title}`}></img>
           </div>
           <a onClick = {handleDetails} className = 'mealName'>{meal.title}</a>
           <label className  = 'mealDesc desapear'>{meal.description}</label>
@@ -44,9 +44,9 @@ export function FoodCard({meal}) {
           {`R$ ${meal.price.toLocaleString('pt-br', {minimumFractionDigits: 2})}`}
         </p>
           <div className = 'qtdOfOrder'>
-            <img src = {minus} onClick = {handleDecrement}/>
+            <img alt = 'sinal de menos' src = {minus} onClick = {handleDecrement}/>
             <label> {quantity < 10 ? `0${quantity}` : quantity} </label> 
-            <img src = {plus} onClick = {handleIncrements}/> 
+            <img alt = 'sinal de mais' src = {plus} onClick = {handleIncrements}/> 
             <RedButton title = 'incluir'></RedButton>
           </div>
         </div>

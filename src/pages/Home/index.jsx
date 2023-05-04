@@ -57,7 +57,7 @@ export function Home() {
           <div  className = 'head'>
               <div className = 'HomeADS'>
                 <div className = 'imgSide'>
-                  <img src = {topHomeImage}></img>
+                  <img src = {topHomeImage} alt = 'Imagem de comidas saborosas'></img>
                 </div>
     
                 <div className = 'textSide'>
@@ -190,7 +190,7 @@ export function Home() {
           <div  className = 'head'>
               <div className = 'HomeADS'>
                 <div className = 'imgSide'>
-                  <img src = {topHomeImage}></img>
+                  <img src = {topHomeImage} alt = 'Imagem de comidas saborosas'></img>
                 </div>
     
                 <div className = 'textSide'>
