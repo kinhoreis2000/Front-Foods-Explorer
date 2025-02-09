@@ -20,10 +20,8 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     outputs:
-      image_uri: ${{ steps.build-image.outputs.image_uri }}
-
+      image_uri: ${{ steps.get-image-uri.outputs.image_uri }} # Correct output reference
     steps:
       - name: Checkout código
         uses: actions/checkout@v4
@@ -47,7 +45,7 @@ jobs:
           npm install --save-dev jest
           npm run test
         continue-on-error: true
-        
+
       - name: Configurar credenciais AWS
         uses: aws-actions/configure-aws-credentials@v2
         with:
@@ -67,16 +65,22 @@ jobs:
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-          echo "Image URI: $image_uri" >> $GITHUB_OUTPUT
-          echo "image_uri=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT 
+
+      - name: Get Image URI
+        id: get-image-uri  # New step to get the URI
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          image_uri=$(docker inspect --format '{{.RepoDigests}}' $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG | tr -d '[]')
+          echo "image_uri=$image_uri" >> $GITHUB_OUTPUT # Correctly set the output
 
       - name: Listar conteúdo do diretório dist
         run: ls -R dist
 
   deploy:
     runs-on: ubuntu-latest
-    needs: build  # This ensures the deploy job waits for the build job to complete
-
+    needs: build
     steps:
       - name: Configurar credenciais AWS
         uses: aws-actions/configure-aws-credentials@v2
@@ -87,7 +91,7 @@ jobs:
 
       - name: Debug - Print Image URI
         run: |
-         echo "Image URI: ${{ needs.build.outputs.image_uri }}"
+          echo "Image URI: ${{ needs.build.outputs.image_uri }}" # Access the output
 
       - name: Preencher a nova imagem no Amazon ECS task definition
         id: task-def
@@ -95,8 +99,7 @@ jobs:
         with:
           task-definition: ${{ env.ECS_TASK_DEFINITION }}
           container-name: ${{ env.CONTAINER_NAME }}
-          image: ${{ needs.build.outputs.image_uri }}
-            # Correctly reference the output from the build job
+          image: ${{ needs.build.outputs.image_uri }} # Use the correct output
 
       - name: Deploy para o Amazon ECS
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
