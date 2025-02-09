@@ -24,6 +24,11 @@ jobs:
       image_uri: ${{ steps.get-image-uri.outputs.image_uri }}
     steps:
       # ... (Checkout, Node.js setup, npm install, lint, test, AWS credentials, ECR login - these are all the same)
+      - name: Debug - Print ECR_REGISTRY and ECR_REPOSITORY
+        run: |
+            echo "ECR_REGISTRY: $ECR_REGISTRY"
+            echo "ECR_REPOSITORY: $ECR_REPOSITORY"
+            echo "IMAGE_TAG: $IMAGE_TAG
 
       - name: Build and Push Docker image to Amazon ECR
         id: build-and-push
