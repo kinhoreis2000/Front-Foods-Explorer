@@ -63,20 +63,22 @@ jobs:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .  # Build the image
 
-      - name: Get Image URI
-        id: get-image-uri  # New step to get the URI
+      - name: Push Docker image to Amazon ECR and Get Image URI
+        id: get-image-uri
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          image_uri=$(docker inspect --format '{{.RepoDigests}}' $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG | tr -d '[]')
-          echo "image_uri=$image_uri" >> $GITHUB_OUTPUT # Correctly set the output
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG # Push it to ECR
 
-      - name: Listar conteúdo do diretório dist
-        run: ls -R dist
+          # Now the image is on ECR, but we need to pull it locally to inspect
+          docker pull $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG # Pull the image locally
+
+          image_uri=$(docker inspect --format '{{.RepoDigests}}' $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG | tr -d '[]')
+          echo "image_uri=$image_uri" >> $GITHUB_OUTPUT
+
 
   deploy:
     runs-on: ubuntu-latest
