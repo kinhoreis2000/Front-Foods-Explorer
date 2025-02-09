@@ -21,7 +21,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     outputs:
-      image_uri: ${{ steps.get-image-uri.outputs.image_uri }} # Correct output reference
+      image_uri: ${{ steps.get-image-uri.outputs.image_uri }}
     steps:
       - name: Checkout código
         uses: actions/checkout@v4
@@ -57,39 +57,29 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
-      - name: Build, tag, and push Docker image to Amazon ECR
-        id: build-image
+      - name: Build and Push Docker image to Amazon ECR
+        id: build-and-push
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          IMAGE_TAG: ${{ github.sha }}
+          ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
+          IMAGE_TAG: ${{ github.sha }} # Consistent tag
         run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .  # Build the image
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
-      - name: Push Docker image to Amazon ECR and Get Image URI
+      - name: Get Image URI
         id: get-image-uri
         env:
-           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-           ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
-           IMAGE_TAG: ${{ github.sha }}
-          
-    
-
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
+          IMAGE_TAG: ${{ github.sha }} # Consistent tag
         run: |
           docker pull $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-
-          # Debugging: Print the image name we're inspecting
           echo "Inspecting image: $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
-
           image_uri=$(docker inspect --format '{{.RepoDigests}}' $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG | tr -d '[]')
-
-          # Debugging: Print the raw output of docker inspect
           echo "Raw docker inspect output: $(docker inspect --format '{{.RepoDigests}}' $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG)"
-
-          # Debugging: Print the extracted image_uri
           echo "Extracted image_uri: $image_uri"
-
           echo "image_uri=$image_uri" >> $GITHUB_OUTPUT
-
 
   deploy:
     runs-on: ubuntu-latest
@@ -102,10 +92,8 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
 
-      - name: Debug - Print Image URI
-        run: |
-          echo "image_uri=$image_uri" >> $GITHUB_OUTPUT
-
+      - name: Debug - Print Image URI  # Corrected debug output
+        run: echo "Image URI: ${{ needs.build.outputs.image_uri }}"
 
       - name: Preencher a nova imagem no Amazon ECS task definition
         id: task-def
