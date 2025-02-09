@@ -68,15 +68,25 @@ jobs:
       - name: Push Docker image to Amazon ECR and Get Image URI
         id: get-image-uri
         env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
           IMAGE_TAG: ${{ github.sha }}
-        run: |
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG # Push it to ECR
 
-          # Now the image is on ECR, but we need to pull it locally to inspect
-          docker pull $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG # Pull the image locally
+
+        run: |
+          docker pull $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+          # Debugging: Print the image name we're inspecting
+          echo "Inspecting image: $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
           image_uri=$(docker inspect --format '{{.RepoDigests}}' $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG | tr -d '[]')
+
+          # Debugging: Print the raw output of docker inspect
+          echo "Raw docker inspect output: $(docker inspect --format '{{.RepoDigests}}' $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG)"
+
+          # Debugging: Print the extracted image_uri
+          echo "Extracted image_uri: $image_uri"
+
           echo "image_uri=$image_uri" >> $GITHUB_OUTPUT
 
 
@@ -93,7 +103,8 @@ jobs:
 
       - name: Debug - Print Image URI
         run: |
-          echo "Image URI: ${{ needs.build.outputs.image_uri }}" # Access the output
+          echo "image_uri=$image_uri" >> $GITHUB_OUTPUT
+
 
       - name: Preencher a nova imagem no Amazon ECS task definition
         id: task-def
