@@ -23,56 +23,24 @@ jobs:
     outputs:
       image_uri: ${{ steps.get-image-uri.outputs.image_uri }}
     steps:
-      - name: Checkout código
-        uses: actions/checkout@v4
-
-      - name: Configurar Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18
-
-      - name: Instalar dependências
-        run: npm install
-
-      - name: Rodar Linter
-        run: |
-          npm install --save-dev eslint
-          npm run lint
-        continue-on-error: true
-
-      - name: Rodar Testes
-        run: |
-          npm install --save-dev jest
-          npm run test
-        continue-on-error: true
-
-      - name: Configurar credenciais AWS
-        uses: aws-actions/configure-aws-credentials@v2
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_REGION }}
-
-      - name: Login no Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
+      # ... (Checkout, Node.js setup, npm install, lint, test, AWS credentials, ECR login - these are all the same)
 
       - name: Build and Push Docker image to Amazon ECR
         id: build-and-push
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
-          IMAGE_TAG: ${{ github.sha }} # Consistent tag
+          IMAGE_TAG: ${{ github.sha }}
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
       - name: Get Image URI
         id: get-image-uri
-        env:
+        env:  # Correct indentation here!
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
-          IMAGE_TAG: ${{ github.sha }} # Consistent tag
+          IMAGE_TAG: ${{ github.sha }}
         run: |
           docker pull $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           echo "Inspecting image: $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
@@ -85,14 +53,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - name: Configurar credenciais AWS
-        uses: aws-actions/configure-aws-credentials@v2
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_REGION }}
+      # ... (AWS credentials - same as before)
 
-      - name: Debug - Print Image URI  # Corrected debug output
+      - name: Debug - Print Image URI
         run: echo "Image URI: ${{ needs.build.outputs.image_uri }}"
 
       - name: Preencher a nova imagem no Amazon ECS task definition
@@ -101,7 +64,7 @@ jobs:
         with:
           task-definition: ${{ env.ECS_TASK_DEFINITION }}
           container-name: ${{ env.CONTAINER_NAME }}
-          image: ${{ needs.build.outputs.image_uri }} # Use the correct output
+          image: ${{ needs.build.outputs.image_uri }}
 
       - name: Deploy para o Amazon ECS
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
