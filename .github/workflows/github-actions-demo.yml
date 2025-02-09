@@ -82,13 +82,18 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
 
+      - name: Debug - Print Image URI
+        run: |
+         echo "Image URI: ${{ needs.build.outputs.image_uri }}"
+
       - name: Preencher a nova imagem no Amazon ECS task definition
         id: task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
           task-definition: ${{ env.ECS_TASK_DEFINITION }}
           container-name: ${{ env.CONTAINER_NAME }}
-          image: ${{ needs.build.outputs.image_uri }}  # Correctly reference the output from the build job
+          image: ${{ needs.build.outputs.image_uri }}
+            # Correctly reference the output from the build job
 
       - name: Deploy para o Amazon ECS
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
