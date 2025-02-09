@@ -57,7 +57,7 @@ jobs:
 
       - name: Debug - Print Image URI
         run: |
-        echo "Image URI: ${{ needs.build.outputs.image_uri }}"
+         echo "Image URI: ${{ needs.build.outputs.image_uri }}"
 
       - name: Preencher a nova imagem no Amazon ECS task definition
         id: task-def
