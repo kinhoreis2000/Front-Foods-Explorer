@@ -15,6 +15,7 @@ env:
   ECS_SERVICE: ${{ secrets.ECS_SERVICE }}
   ECS_CLUSTER: ${{ secrets.ECS_CLUSTER }}
   ECS_TASK_DEFINITION: ${{ secrets.ECS_TASK_DEFINITION }}
+  CONTAINER_NAME: ${{ secrets.CONTAINER_NAME }}  # Adicionando a variável de ambiente
 
 jobs:
   build:
@@ -85,14 +86,13 @@ jobs:
         run: |
           echo "image_uri=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT 
 
-
       - name: Preencher a nova imagem no Amazon ECS task definition
         id: task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
           task-definition: ${{ env.ECS_TASK_DEFINITION }}
+          container-name: ${{ env.CONTAINER_NAME }}  # Usando a variável de ambiente
           image: ${{ needs.build.outputs.image_uri }}
-            # Correctly reference the output from the build job
 
       - name: Deploy para o Amazon ECS
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
