@@ -69,6 +69,9 @@ jobs:
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           echo "image_uri=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
 
+      - name: Debug - Print Image URI (Build)
+        run: |
+          echo "image_uri=${{ steps.build-image.outputs.image_uri }}"
 
   deploy:
     runs-on: ubuntu-latest
@@ -82,7 +85,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
 
-      - name: Debug - Print Image URI
+      - name: Debug - Print Image URI (Deploy)
         run: |
           echo "image_uri=${{ needs.build.outputs.image_uri }}"
 
