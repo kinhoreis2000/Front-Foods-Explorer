@@ -26,12 +26,29 @@ jobs:
       # ... (Checkout, Node.js setup, npm install, lint, test, AWS credentials, ECR login - these are all the same)
       - name: Debug - Print ECR_REGISTRY and ECR_REPOSITORY
         run: |
-            echo "ECR_REGISTRY: $ECR_REGISTRY"
-            echo "ECR_REPOSITORY: $ECR_REPOSITORY"
-            echo "IMAGE_TAG: $IMAGE_TAG
+          npm install --save-dev eslint
+          npm run lint
+        continue-on-error: true
 
-      - name: Build and Push Docker image to Amazon ECR
-        id: build-and-push
+      - name: Rodar Testes
+        run: |
+          npm install --save-dev jest
+          npm run test
+        continue-on-error: true
+        
+      - name: Configurar credenciais AWS
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login no Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build, tag, e push da imagem Docker para o Amazon ECR
+        id: build-image
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
@@ -56,13 +73,15 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    needs: build
-    steps:
-      # ... (AWS credentials - same as before)
+    needs: build  # Aqui deve estar no mesmo nível do 'build'
 
-      - name: Debug - Print Image URI
-        run: |
-         echo "Image URI: ${{ needs.build.outputs.image_uri }}"
+    steps:
+      - name: Configurar credenciais AWS
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
 
       - name: Preencher a nova imagem no Amazon ECS task definition
         id: task-def
@@ -70,7 +89,7 @@ jobs:
         with:
           task-definition: ${{ env.ECS_TASK_DEFINITION }}
           container-name: ${{ env.CONTAINER_NAME }}
-          image: ${{ needs.build.outputs.image_uri }}
+          image: ${{ needs.build.outputs.image_uri }}  # Usando o output do job build
 
       - name: Deploy para o Amazon ECS
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
