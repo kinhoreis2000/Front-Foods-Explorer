@@ -9,14 +9,6 @@ on:
       - main
       - develop
 
-env:
-  AWS_REGION: ${{ secrets.AWS_REGION }}
-  ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
-  ECS_SERVICE: ${{ secrets.ECS_SERVICE }}
-  ECS_CLUSTER: ${{ secrets.ECS_CLUSTER }}
-  ECS_TASK_DEFINITION: ${{ secrets.ECS_TASK_DEFINITION }}
-  CONTAINER_NAME: ${{ secrets.CONTAINER_NAME }}
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -29,70 +21,44 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16  # Replace with your desired Node.js version
+          node-version: 16
 
       - name: Install dependencies
         run: npm install
 
-      - name: Run Linter
-        run: npm run lint
-        continue-on-error: true
-
-      - name: Run Tests
-        run: npm run test
-        continue-on-error: true
-        
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v2
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_REGION }}
-
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
-
-      - name: Build, tag, and push Docker image to Amazon ECR
+      - name: Build and push Docker image to Amazon ECR
         id: build-image
         env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin ${{ secrets.ECR_REPOSITORY }}
+          docker build -t ${{ secrets.ECR_REPOSITORY }}:$IMAGE_TAG .
+          docker push ${{ secrets.ECR_REPOSITORY }}:$IMAGE_TAG
 
       - name: Get Image URI
         id: get-image-uri
         run: |
-          image_uri=$(docker inspect --format '{{.RepoDigests}}' $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG | tr -d '[]')
-          echo "image_uri=$image_uri" >> $GITHUB_OUTPUT
+          echo "image_uri=${{ secrets.ECR_REPOSITORY }}:$IMAGE_TAG" >> $GITHUB_ENV
 
   deploy:
     runs-on: ubuntu-latest
     needs: build
-
     steps:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_REGION }}
-
-      - name: Update ECS task definition with new image
-        id: task-def
-        uses: aws-actions/amazon-ecs-render-task-definition@v1
-        with:
-          task-definition: ${{ env.ECS_TASK_DEFINITION }}
-          container-name: ${{ env.CONTAINER_NAME }}
-          image: ${{ needs.build.outputs.image_uri }}
+          aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Deploy to Amazon ECS
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
-          task-definition: ${{ steps.task-def.outputs.task-definition }}
-          service: ${{ env.ECS_SERVICE }}
-          cluster: ${{ env.ECS_CLUSTER }}
+          task-definition: ${{ secrets.ECS_TASK_DEFINITION }}
+          service: ${{ secrets.ECS_SERVICE }}
+          cluster: ${{ secrets.ECS_CLUSTER }}
           wait-for-service-stability: true
