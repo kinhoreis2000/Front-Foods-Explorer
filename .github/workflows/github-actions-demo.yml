@@ -15,6 +15,7 @@ env:
   ECS_SERVICE: ${{ secrets.ECS_SERVICE }}
   ECS_CLUSTER: ${{ secrets.ECS_CLUSTER }}
   ECS_TASK_DEFINITION: ${{ secrets.ECS_TASK_DEFINITION }}
+  CONTAINER_NAME: ${{ secrets.CONTAINER_NAME }}  # Nome do container (adicionado)
 
 jobs:
   build:
@@ -91,6 +92,7 @@ jobs:
         with:
           task-definition: ${{ env.ECS_TASK_DEFINITION }}
           image: ${{ needs.build.outputs.image_uri }}  # Referenciando o output do job 'build'
+          container-name: ${{ env.CONTAINER_NAME }}  # Nome do container (adicionado)
 
       - name: Deploy para o Amazon ECS
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
