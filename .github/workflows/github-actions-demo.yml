@@ -47,7 +47,7 @@ jobs:
 
       - name: Load Docker image into Kind cluster
         run: |
-          kind load docker-image $IMAGE_NAME:$IMAGE_TAG --name my-cluster
+          kind load docker-image $IMAGE_NAME:$IMAGE_TAG --name clusertappfoodexplorer
 
   deploy:
     runs-on: ubuntu-latest
