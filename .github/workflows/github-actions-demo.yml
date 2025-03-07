@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: CI/CD Pipeline for Kind
 
 on:
   push:
@@ -10,19 +10,12 @@ on:
       - develop
 
 env:
-  AWS_REGION: ${{ secrets.AWS_REGION }}
-  ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
-  ECS_SERVICE: ${{ secrets.ECS_SERVICE }}
-  ECS_CLUSTER: ${{ secrets.ECS_CLUSTER }}
-  ECS_TASK_DEFINITION: ${{ secrets.ECS_TASK_DEFINITION }}
-  CONTAINER_NAME: ${{ secrets.CONTAINER_NAME }}  # Nome do container (adicionado)
+  IMAGE_NAME: my-app  # Name of your Docker image
+  IMAGE_TAG: tag   # Default tag for the image
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
-    outputs:
-      image_uri: ${{ steps.build-image.outputs.image_uri }}  # Output da imagem
 
     steps:
       - name: Checkout código
@@ -47,60 +40,30 @@ jobs:
           npm install --save-dev jest
           npm run test
         continue-on-error: true
-        
-      - name: Configurar credenciais AWS
-        uses: aws-actions/configure-aws-credentials@v2
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_REGION }}
 
-      - name: Login no Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
-
-      - name: Build, tag, and push Docker image to Amazon ECR
-        id: build-image
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          IMAGE_TAG: ${{ github.sha }}
+      - name: Build Docker image
         run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-          echo "image_uri=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
+          docker build -t $IMAGE_NAME:$IMAGE_TAG .
 
-      - name: Debug - Print Image URI (Build)
+      - name: Load Docker image into Kind cluster
         run: |
-          echo "image_uri=${{ steps.build-image.outputs.image_uri }}"
+          kind load docker-image $IMAGE_NAME:$IMAGE_TAG --name my-cluster
 
   deploy:
     runs-on: ubuntu-latest
-    needs: build  # Isso faz o deploy esperar o job de build
+    needs: build  # Wait for the build job to complete
 
     steps:
-      - name: Configurar credenciais AWS
-        uses: aws-actions/configure-aws-credentials@v2
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_REGION }}
+      - name: Checkout código
+        uses: actions/checkout@v4
 
-      - name: Debug - Print Image URI (Deploy)
+      - name: Deploy to Kind cluster
         run: |
-          echo "image_uri=${{ needs.build-image.outputs.image_uri }}"
+          # Apply Kubernetes manifests to deploy the application
+          kubectl apply -f kubernetes/deployment.yaml
+          kubectl apply -f kubernetes/service.yaml
 
-      - name: Preencher a nova imagem no Amazon ECS task definition
-        id: task-def
-        uses: aws-actions/amazon-ecs-render-task-definition@v1
-        with:
-          task-definition: ${{ env.ECS_TASK_DEFINITION }}
-          image: ${{ needs.build-image.outputs.image_uri }}  # Referenciando o output do job 'build'
-          container-name: ${{ env.CONTAINER_NAME }}  # Nome do container (adicionado)
-
-      - name: Deploy para o Amazon ECS
-        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
-        with:
-          task-definition: ${{ steps.task-def.outputs.task-definition }}
-          service: ${{ env.ECS_SERVICE }}
-          cluster: ${{ env.ECS_CLUSTER }}
-          wait-for-service-stability: true
+      - name: Verify deployment
+        run: |
+          kubectl get pods -o wide
+          kubectl get svc
