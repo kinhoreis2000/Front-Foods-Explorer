@@ -14,7 +14,7 @@ env:
   IMAGE_TAG: tag      # Default tag for the image
 
 jobs:
-  setup-kind:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout código
@@ -39,14 +39,6 @@ jobs:
           timeout 300 bash -c 'while [[ $(kubectl get nodes -o jsonpath="{.items[0].status.conditions[?(@.type==\"Ready\")].status}") != "True" ]]; do sleep 5; done'
           kubectl get nodes
 
-  build:
-    runs-on: ubuntu-latest
-    needs: setup-kind  # Wait for the Kind cluster to be created
-
-    steps:
-      - name: Checkout código
-        uses: actions/checkout@v4
-
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
@@ -70,10 +62,6 @@ jobs:
       - name: Build Docker image
         run: |
           docker build -t $IMAGE_NAME:$IMAGE_TAG .
-
-      - name: Verify Kind cluster
-        run: |
-          kind get clusters
 
       - name: Load Docker image into Kind cluster
         run: |
