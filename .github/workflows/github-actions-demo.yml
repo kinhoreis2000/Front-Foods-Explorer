@@ -30,6 +30,10 @@ jobs:
         run: |
           kind create cluster --name kind-clusterappfoodexplorer
 
+      - name: Install Calico CNI
+        run: |
+          kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
+
       - name: Verify cluster
         run: |
           kubectl cluster-info
