@@ -39,10 +39,6 @@ jobs:
           timeout 300 bash -c 'while [[ $(kubectl get nodes -o jsonpath="{.items[0].status.conditions[?(@.type==\"Ready\")].status}") != "True" ]]; do sleep 5; done'
           kubectl get nodes
 
-      - name: Check Calico logs
-        run: |
-          kubectl logs -n kube-system -l k8s-app=calico-node
-
   build:
     runs-on: ubuntu-latest
     needs: setup-kind  # Wait for the Kind cluster to be created
