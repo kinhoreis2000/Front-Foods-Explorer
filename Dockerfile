@@ -10,7 +10,7 @@ COPY package*.json ./
 # Install dependencies
 RUN npm install
 
-# Copy the rest of the application code
+# Copy the rest of the application  
 COPY . .
 
 # Build the application (replace `npm run build` with your framework's build command)
