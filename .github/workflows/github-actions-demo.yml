@@ -34,10 +34,14 @@ jobs:
         run: |
           kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
 
-      - name: Verify cluster
+      - name: Wait for node to be Ready
         run: |
-          kubectl cluster-info
+          timeout 300 bash -c 'while [[ $(kubectl get nodes -o jsonpath="{.items[0].status.conditions[?(@.type==\"Ready\")].status}") != "True" ]]; do sleep 5; done'
           kubectl get nodes
+
+      - name: Check Calico logs
+        run: |
+          kubectl logs -n kube-system -l k8s-app=calico-node
 
   build:
     runs-on: ubuntu-latest
