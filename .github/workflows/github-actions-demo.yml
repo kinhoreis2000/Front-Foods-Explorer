@@ -71,6 +71,10 @@ jobs:
         run: |
           docker build -t $IMAGE_NAME:$IMAGE_TAG .
 
+      - name: Verify Kind cluster
+        run: |
+          kind get clusters
+
       - name: Load Docker image into Kind cluster
         run: |
           kind load docker-image $IMAGE_NAME:$IMAGE_TAG --name kind-clusterappfoodexplorer
