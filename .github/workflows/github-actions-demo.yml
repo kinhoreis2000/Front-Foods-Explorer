@@ -39,6 +39,18 @@ jobs:
           timeout 300 bash -c 'while [[ $(kubectl get nodes -o jsonpath="{.items[0].status.conditions[?(@.type==\"Ready\")].status}") != "True" ]]; do sleep 5; done'
           kubectl get nodes
 
+      - name: Save kubeconfig
+        run: |
+          mkdir -p ~/.kube
+          kind get kubeconfig --name kind-clusterappfoodexplorer > ~/.kube/config
+        shell: bash
+
+      - name: Upload kubeconfig
+        uses: actions/upload-artifact@v4
+        with:
+          name: kubeconfig
+          path: ~/.kube/config
+
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
@@ -75,9 +87,19 @@ jobs:
       - name: Checkout código
         uses: actions/checkout@v4
 
+      - name: Download kubeconfig
+        uses: actions/download-artifact@v4
+        with:
+          name: kubeconfig
+          path: ~/.kube
+
+      - name: Set KUBECONFIG
+        run: |
+          export KUBECONFIG=~/.kube/config
+          kubectl cluster-info
+
       - name: Deploy to Kind cluster
         run: |
-          # Apply Kubernetes manifests to deploy the application
           kubectl apply -f k8s/deployment.yaml
           kubectl apply -f k8s/service.yaml
 
