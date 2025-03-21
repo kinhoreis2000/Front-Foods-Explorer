@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: meu-app
-        image: teste01:tag
-        imagePullPolicy: Never
+        image: my-app:tag   # Must match the loaded image!
+        imagePullPolicy: IfNotPresent  # Change this!
         ports:
         - containerPort: 80
