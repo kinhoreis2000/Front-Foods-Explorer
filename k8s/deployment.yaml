@@ -14,7 +14,11 @@ spec:
     spec:
       containers:
       - name: meu-app
-        image: my-app:tag   # Must match the loaded image!
-        imagePullPolicy: IfNotPresent  # Change this!
+        image: frontend-foodexplorer-image:latest
+
+        imagePullPolicy: IfNotPresent  
         ports:
         - containerPort: 80
+        env:
+          - name: VITE_API_URL
+            value: "http://localhost:5000"  # Mudança aqui!
