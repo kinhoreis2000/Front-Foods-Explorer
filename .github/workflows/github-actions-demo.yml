@@ -10,8 +10,8 @@ on:
       - develop
 
 env:
-  IMAGE_NAME: my-app  # Name of your Docker image
-  IMAGE_TAG: tag      # Default tag for the image
+  IMAGE_NAME: my-app  
+  IMAGE_TAG: tag      
 
 jobs:
   build:
@@ -56,7 +56,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    needs: build  # Espera o job build terminar antes de rodar o deploydsds
+    needs: build  
     steps:
       - name: Checkout código
         uses: actions/checkout@v4
